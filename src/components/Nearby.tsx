@@ -6,7 +6,7 @@ import InformationCard from "./informationCard";
 import * as Location from "expo-location";
 import { useState, useEffect } from "react";
 import axios from "axios";
-export default function App() {
+export default function App({ navigation }: { navigation: any }) {
   const [location, setLocation] = useState<any>(null);
   const [errorMsg, setErrorMsg] = useState<any>(null);
   const [parkZones, setParkZones] = useState<any>([]);
@@ -96,9 +96,11 @@ export default function App() {
         {listofparkzones()}
       </MapView>
       <InformationCard
+        navigation={navigation}
         visible={visible}
         title={informationCard?.name}
         description={informationCard?.remarks}
+        id={informationCard?.id}
       />
     </View>
   );

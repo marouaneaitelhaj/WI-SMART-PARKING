@@ -1,8 +1,7 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import Nearby from "./src/components/Nearby";
-
+import Ionicons from "react-native-vector-icons/Ionicons";
 import Booking from "./src/components/Booking";
 import History from "./src/components/History";
 import SearchParking from "./src/components/SearchParking";
@@ -18,22 +17,60 @@ export default function App() {
         },
       }}
     >
-      <Tab.Navigator>
-        <Tab.Screen name="Nearby" component={Nearby} />
-        <Tab.Screen name="Booking" component={Booking} />
-        <Tab.Screen name="History" component={History} />
-        <Tab.Screen name="Search Parking" component={SearchParking} />
-        <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Navigator
+        initialRouteName="Nearby"
+        barStyle={{ backgroundColor: "#ffffff" }}
+        activeColor="#24aaa1"
+        inactiveColor="gray"
+        shifting={true}
+      >
+        <Tab.Screen
+          name="Nearby"
+          component={Nearby}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="location" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Booking"
+          component={Booking}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="bookmark" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Search"
+          component={SearchParking}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="search" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="History"
+          component={History}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="time" color={color} size={26} />
+            ),
+          }}
+        />
+
+        <Tab.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="person-circle-outline" color={color} size={26} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
