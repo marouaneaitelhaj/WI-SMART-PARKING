@@ -19,7 +19,7 @@ export default function InformationCard(props: any) {
       <Text style={styles.title}>{props.title}</Text>
       <Text style={styles.description}>{props.description}</Text>
       <SafeAreaView style={{ flex: 1 , padding: 20, width: '100%'}}>
-        <ScrollView  horizontal={true} style={{width: '100%'}}>
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{width: '100%'}}>
           <Ionicons
             name="car"
             size={40}

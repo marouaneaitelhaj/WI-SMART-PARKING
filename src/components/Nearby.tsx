@@ -22,27 +22,23 @@ export default function App({ navigation }: { navigation: any }) {
         setErrorMsg("Permission to access location was denied");
         return;
       }
-
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-
-      getParkZones(); // Call getParkZones after obtaining the location
-      // console.log(parkZones);
+      getParkZones();
     })();
-  }, []);
+  }, [visible]);
 
   const getParkZones = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.11.107:8000/api/readparkzones"
+        "http://192.168.11.102:8000/api/readparkzones"
       );
-      // console.log(response.data);
       setParkZones(response.data);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
   };
-
   const listofparkzones = () => {
     return parkZones.map((parkZone: any) => {
       return (

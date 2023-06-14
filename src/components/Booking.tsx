@@ -1,19 +1,26 @@
-import { View, Text } from "react-native";
 import { useState, useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+} from "react-native";
 import React from "react";
 import axios from "axios";
-const Booking = (props: any) => {
+const Booking = (props: any, { navigation }: { navigation: any }) => {
   const [slotsParkzone, setSlotsParkzone] = useState<any>([]);
   useEffect(() => {
     (async () => {
       if (props.route.params.id) {
         axios
           .get(
-            "http://192.168.11.107:8000/api/readparkzones/" +
+            "http://192.168.11.102:8000/api/readparkzones/" +
               props.route.params.id
           )
           .then((response) => {
-            console.log(response.data.slots);
+            console.log(response.data);
             setSlotsParkzone(response.data);
           })
           .catch((error) => {
@@ -21,21 +28,15 @@ const Booking = (props: any) => {
           });
       }
     })();
-  }, []);
+  }, [props.route.params.id]);
   return (
-    <View>
-      <Text>Booking</Text>
-      <Text>{props.route.params?.id}</Text>
-      <Text>{props.route.params?.description}</Text>
-      {slotsParkzone &&
-        slotsParkzone.map((slot: any) => {
-          return (
-            <Text key={slot.id}>
-              {slot.slot_name}
-            </Text>
-          );
-        })}
-    </View>
+    <SafeAreaView>
+      <ScrollView>
+        <Text>Booking</Text>
+        <Text>{props.route.params?.id}</Text>
+        <Text>{props.route.params?.description}</Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 export default Booking;
