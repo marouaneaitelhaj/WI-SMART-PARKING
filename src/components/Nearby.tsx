@@ -28,16 +28,15 @@ export default function App({ navigation }: { navigation: any }) {
     })();
   }, [visible]);
 
-  const getParkZones = async () => {
-    try {
-      const response = await axios.get(
-        "http://192.168.11.102:8000/api/readparkzones"
-      );
-      setParkZones(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+  const getParkZones = () => {
+    axios
+      .get("http://192.168.11.107:8000/api/readparkzones")
+      .then((response) => {
+        setParkZones(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const listofparkzones = () => {
     return parkZones.map((parkZone: any) => {
@@ -45,7 +44,10 @@ export default function App({ navigation }: { navigation: any }) {
         <Marker
           onPress={() => {
             setInformationCard(parkZone);
-            toogleSwitch();
+            // console.log(informationCard);
+            if (visible === false) {
+              toogleSwitch();
+            }
           }}
           key={parkZone.id}
           coordinate={{
@@ -64,10 +66,15 @@ export default function App({ navigation }: { navigation: any }) {
       );
     });
   };
-
   return (
     <View style={styles.container}>
       <MapView
+        onPress={() => {
+          setInformationCard(null);
+          if (visible === true) {
+            toogleSwitch();
+          }
+        }}
         {...(location && {
           initialRegion: {
             latitude: location.coords.latitude,
@@ -92,6 +99,7 @@ export default function App({ navigation }: { navigation: any }) {
         {listofparkzones()}
       </MapView>
       <InformationCard
+        category={informationCard?.category}
         navigation={navigation}
         visible={visible}
         title={informationCard?.name}

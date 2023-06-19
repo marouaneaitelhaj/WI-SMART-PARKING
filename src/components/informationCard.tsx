@@ -10,66 +10,46 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMotorcycle } from "@fortawesome/free-solid-svg-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 export default function InformationCard(props: any) {
   if (props.visible === false) {
     return null;
   }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
       <Text style={styles.description}>{props.description}</Text>
-      <SafeAreaView style={{ flex: 1 , padding: 20, width: '100%'}}>
-        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{width: '100%'}}>
-          <Ionicons
-            name="car"
-            size={40}
-            style={styles.scrolview}
-            color="#f2a654"
-          />
-          <Ionicons
-            name="bicycle"
-            size={40}
-            style={styles.scrolview}
-            color="#f2a654"
-          />
-          <Ionicons
-            name="bus"
-            size={40}
-            style={styles.scrolview}
-            color="#f2a654"
-          />
-          <FontAwesomeIcon
-            style={styles.scrolview}
-            size={40}
-            icon={faMotorcycle}
-            color="#f2a654"
-          />
-          <Ionicons
-            name="car"
-            style={styles.scrolview}
-            size={40}
-            color="#46c35f"
-          />
-          <Ionicons
-            name="bicycle"
-            size={40}
-            style={styles.scrolview}
-            color="#46c35f"
-          />
-          <Ionicons
-            name="bus"
-            size={40}
-            style={styles.scrolview}
-            color="#46c35f"
-          />
-          <FontAwesomeIcon
-            style={styles.scrolview}
-            size={40}
-            icon={faMotorcycle}
-            color="#46c35f"
-          />
-        </ScrollView>
-      </SafeAreaView>
+      <View style={styles.bigOne}>
+        <View style={styles.smallOne}>
+          <MaterialCommunityIcons  style={styles.iconStyle}name="car" size={30} color="#0D6EFD">
+            <Text>{props?.category["Electric Car"]}</Text>
+          </MaterialCommunityIcons>
+          <MaterialCommunityIcons  style={styles.iconStyle}name="bus" size={30} color="#0D6EFD">
+            <Text>{props?.category["Electric Bus"]}</Text>
+          </MaterialCommunityIcons>
+          <MaterialCommunityIcons  style={styles.iconStyle}name="bike" size={30} color="#0D6EFD">
+            <Text>{props?.category["Electric Bike"]}</Text>
+          </MaterialCommunityIcons>
+          <MaterialCommunityIcons  style={styles.iconStyle}name="truck" size={30} color="#0D6EFD">
+            <Text>{props?.category["Electric Truck"]}</Text>
+          </MaterialCommunityIcons>
+        </View>
+        <View style={styles.smallOne}>
+          <MaterialCommunityIcons  style={styles.iconStyle}name="car" size={30} color="#FFC107">
+            <Text>{props?.category["Gasoline Car"]}</Text>
+          </MaterialCommunityIcons>
+          <MaterialCommunityIcons  style={styles.iconStyle}name="bus" size={30} color="#FFC107">
+            <Text>{props?.category["Gasoline Bus"]}</Text>
+          </MaterialCommunityIcons>
+          <MaterialCommunityIcons  style={styles.iconStyle}name="bike" size={30} color="#FFC107">
+            <Text>{props?.category["Gasoline Bike"]}</Text>
+          </MaterialCommunityIcons>
+          <MaterialCommunityIcons  style={styles.iconStyle}name="truck" size={30} color="#FFC107">
+            <Text>{props?.category["Gasoline Truck"]}</Text>
+          </MaterialCommunityIcons>
+        </View>
+      </View>
       <Button
         title="Book Now"
         onPress={() => {
@@ -116,5 +96,21 @@ const styles = StyleSheet.create({
   scrolview: {
     marginHorizontal: 10,
     // padding: 10,
+  },
+  bigOne: {
+    width: "100%",
+    justifyContent: "center",
+    display: "flex",
+    // flexDirection: "row",
+  },
+  smallOne: {
+    width: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginVertical: 10,
+  },
+  iconStyle: {
+    marginHorizontal: 5,
+    marginVertical: 5,
   },
 });
