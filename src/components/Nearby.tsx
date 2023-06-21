@@ -32,6 +32,7 @@ export default function App({ navigation }: { navigation: any }) {
     axios
       .get("http://192.168.11.107:8000/api/readparkzones")
       .then((response) => {
+        console.log(response.data);
         setParkZones(response.data);
       })
       .catch((error) => {
@@ -100,6 +101,7 @@ export default function App({ navigation }: { navigation: any }) {
       </MapView>
       <InformationCard
         category={informationCard?.category}
+        available={informationCard?.available}
         navigation={navigation}
         visible={visible}
         title={informationCard?.name}

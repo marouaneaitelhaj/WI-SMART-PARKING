@@ -22,32 +22,152 @@ export default function InformationCard(props: any) {
       <Text style={styles.description}>{props.description}</Text>
       <View style={styles.bigOne}>
         <View style={styles.smallOne}>
-          <MaterialCommunityIcons  style={styles.iconStyle}name="car" size={30} color="#0D6EFD">
-            <Text>{props?.category["Electric Car"]}</Text>
-          </MaterialCommunityIcons>
-          <MaterialCommunityIcons  style={styles.iconStyle}name="bus" size={30} color="#0D6EFD">
-            <Text>{props?.category["Electric Bus"]}</Text>
-          </MaterialCommunityIcons>
-          <MaterialCommunityIcons  style={styles.iconStyle}name="bike" size={30} color="#0D6EFD">
-            <Text>{props?.category["Electric Bike"]}</Text>
-          </MaterialCommunityIcons>
-          <MaterialCommunityIcons  style={styles.iconStyle}name="truck" size={30} color="#0D6EFD">
-            <Text>{props?.category["Electric Truck"]}</Text>
-          </MaterialCommunityIcons>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <MaterialCommunityIcons
+              style={styles.iconStyle}
+              name="car"
+              size={30}
+              color="#0D6EFD"
+            />
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ fontSize: 15 }}>
+                {props?.category["Electric Car"]["total"]}
+              </Text>
+              <Text
+                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+              >
+                {props?.category["Electric Car"]["available"]}
+              </Text>
+            </View>
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <MaterialCommunityIcons
+              style={styles.iconStyle}
+              name="bus"
+              size={30}
+              color="#0D6EFD"
+            />
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ fontSize: 15 }}>
+                {props?.category["Electric Bus"]["total"]}
+              </Text>
+              <Text
+                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+              >
+                {props?.category["Electric Bus"]["available"]}
+              </Text>
+            </View>
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <MaterialCommunityIcons
+              style={styles.iconStyle}
+              name="bike"
+              size={30}
+              color="#0D6EFD"
+            />
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ fontSize: 15 }}>
+                {props?.category["Electric Bike"]["total"]}
+              </Text>
+              <Text
+                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+              >
+                {props?.category["Electric Bike"]["available"]}
+              </Text>
+            </View>
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <MaterialCommunityIcons
+              style={styles.iconStyle}
+              name="truck"
+              size={30}
+              color="#0D6EFD"
+            />
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ fontSize: 15 }}>
+                {props?.category["Electric Truck"]["total"]}
+              </Text>
+              <Text
+                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+              >
+                {props?.category["Electric Truck"]["available"]}
+              </Text>
+            </View>
+          </View>
         </View>
         <View style={styles.smallOne}>
-          <MaterialCommunityIcons  style={styles.iconStyle}name="car" size={30} color="#FFC107">
-            <Text>{props?.category["Gasoline Car"]}</Text>
-          </MaterialCommunityIcons>
-          <MaterialCommunityIcons  style={styles.iconStyle}name="bus" size={30} color="#FFC107">
-            <Text>{props?.category["Gasoline Bus"]}</Text>
-          </MaterialCommunityIcons>
-          <MaterialCommunityIcons  style={styles.iconStyle}name="bike" size={30} color="#FFC107">
-            <Text>{props?.category["Gasoline Bike"]}</Text>
-          </MaterialCommunityIcons>
-          <MaterialCommunityIcons  style={styles.iconStyle}name="truck" size={30} color="#FFC107">
-            <Text>{props?.category["Gasoline Truck"]}</Text>
-          </MaterialCommunityIcons>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <MaterialCommunityIcons
+              style={styles.iconStyle}
+              name="car"
+              size={30}
+              color="#FFC107"
+            />
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ fontSize: 15 }}>
+                {props?.category["Gasoline Car"]["total"]}
+              </Text>
+              <Text
+                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+              >
+                {props?.category["Gasoline Car"]["available"]}
+              </Text>
+            </View>
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <MaterialCommunityIcons
+              style={styles.iconStyle}
+              name="bus"
+              size={30}
+              color="#FFC107"
+            />
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ fontSize: 15 }}>
+                {props?.category["Gasoline Bus"]["total"]}
+              </Text>
+              <Text
+                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+              >
+                {props?.category["Gasoline Bus"]["available"]}
+              </Text>
+            </View>
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <MaterialCommunityIcons
+              style={styles.iconStyle}
+              name="bike"
+              size={30}
+              color="#FFC107"
+            />
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ fontSize: 15 }}>
+                {props?.category["Gasoline Bike"]["total"]}
+              </Text>
+              <Text
+                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+              >
+                {props?.category["Gasoline Bike"]["available"]}
+              </Text>
+            </View>
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <MaterialCommunityIcons
+              style={styles.iconStyle}
+              name="truck"
+              size={30}
+              color="#FFC107"
+            />
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ fontSize: 15 }}>
+                {props?.category["Gasoline Truck"]["total"]}
+              </Text>
+              <Text
+                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+              >
+                {props?.category["Gasoline Truck"]["available"]}
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
       <Button
@@ -108,6 +228,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     marginVertical: 10,
+    justifyContent: "space-between",
   },
   iconStyle: {
     marginHorizontal: 5,

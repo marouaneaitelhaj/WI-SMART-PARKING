@@ -13,11 +13,11 @@ const Booking = (props: any, { navigation }: { navigation: any }) => {
   const [slotsParkzone, setSlotsParkzone] = useState<any>([]);
   useEffect(() => {
     (async () => {
-      if (props.route.params.id) {
+      if (props.route.params?.id) {
         axios
           .get(
-            "http://192.168.11.102:8000/api/readparkzones/" +
-              props.route.params.id
+            "http://192.168.11.107:8000/api/readparkzones/" +
+              props.route.params?.id
           )
           .then((response) => {
             console.log(response.data);
@@ -28,13 +28,11 @@ const Booking = (props: any, { navigation }: { navigation: any }) => {
           });
       }
     })();
-  }, [props.route.params.id]);
+  }, [props.route.params?.id]);
   return (
     <SafeAreaView>
       <ScrollView>
-        <Text>Booking</Text>
-        <Text>{props.route.params?.id}</Text>
-        <Text>{props.route.params?.description}</Text>
+        <Text>heloo</Text>
       </ScrollView>
     </SafeAreaView>
   );
