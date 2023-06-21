@@ -1,76 +1,77 @@
-import { StyleSheet } from "react-native";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import Nearby from "./src/components/Nearby";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import Booking from "./src/components/Booking";
 import History from "./src/components/History";
 import SearchParking from "./src/components/SearchParking";
 import Profile from "./src/components/Profile";
 import { NavigationContainer } from "@react-navigation/native";
-export default function App() {
-  const Tab = createMaterialBottomTabNavigator();
-  return (
-    <NavigationContainer
-      theme={{
-        colors: {
-          secondaryContainer: "transparent",
-        },
-      }}
-    >
-      <Tab.Navigator
-        initialRouteName="Nearby"
-        barStyle={{ backgroundColor: "#ffffff" }}
-        activeColor="#24aaa1"
-        inactiveColor="gray"
-        shifting={true}
-      >
-        <Tab.Screen
-          name="Nearby"
-          component={Nearby}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="location" color={color} size={26} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Booking"
-          component={Booking}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="bookmark" color={color} size={26} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Search"
-          component={SearchParking}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="search" color={color} size={26} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="History"
-          component={History}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="time" color={color} size={26} />
-            ),
-          }}
-        />
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function HomeTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Nearby"
+        component={Nearby}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="map-marker"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="History"
+        component={History}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="history" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchParking}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="magnify" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
           options={{
-            tabBarIcon: ({ color }) => (
-              <Ionicons name="person-circle-outline" color={color} size={26} />
-            ),
+            headerShown: false,
           }}
+          component={HomeTabs}
         />
-      </Tab.Navigator>
+        <Stack.Screen name="Booking" component={Booking} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
+export default App;
