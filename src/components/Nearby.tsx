@@ -30,9 +30,8 @@ export default function App({ navigation }: { navigation: any }) {
 
   const getParkZones = () => {
     axios
-      .get("http://192.168.11.107:8000/api/readparkzones")
+      .get("http://192.168.11.110:8000/api/readparkzones")
       .then((response) => {
-        console.log(response.data);
         setParkZones(response.data);
       })
       .catch((error) => {
@@ -45,7 +44,6 @@ export default function App({ navigation }: { navigation: any }) {
         <Marker
           onPress={() => {
             setInformationCard(parkZone);
-            // console.log(informationCard);
             if (visible === false) {
               toogleSwitch();
             }

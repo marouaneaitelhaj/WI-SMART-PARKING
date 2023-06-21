@@ -15,7 +15,16 @@ export default function InformationCard(props: any) {
   if (props.visible === false) {
     return null;
   }
-
+  type Category = {
+    [key: string]: {
+      total: number;
+      available: number;
+    };
+  };
+  
+  type Props = {
+    category?: Category;
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
@@ -31,12 +40,12 @@ export default function InformationCard(props: any) {
             />
             <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 15 }}>
-                {props?.category["Electric Car"]["total"]}
+                {props?.category?.["Electric Car"]?.total || 0}
               </Text>
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category["Electric Car"]["available"]}
+                {props?.category?.["Electric Car"]?.available|| 0}
               </Text>
             </View>
           </View>
@@ -49,12 +58,12 @@ export default function InformationCard(props: any) {
             />
             <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 15 }}>
-                {props?.category["Electric Bus"]["total"]}
+                {props?.category?.["Electric Bus"]?.total || 0}
               </Text>
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category["Electric Bus"]["available"]}
+                {props?.category?.["Electric Bus"]?.available|| 0}
               </Text>
             </View>
           </View>
@@ -67,12 +76,12 @@ export default function InformationCard(props: any) {
             />
             <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 15 }}>
-                {props?.category["Electric Bike"]["total"]}
+                {props?.category?.["Electric Bike"]?.total || 0}
               </Text>
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category["Electric Bike"]["available"]}
+                {props?.category?.["Electric Bike"]?.available|| 0}
               </Text>
             </View>
           </View>
@@ -85,12 +94,12 @@ export default function InformationCard(props: any) {
             />
             <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 15 }}>
-                {props?.category["Electric Truck"]["total"]}
+                {props?.category?.["Electric Truck"]?.total || 0}
               </Text>
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category["Electric Truck"]["available"]}
+                {props?.category?.["Electric Truck"]?.available|| 0}
               </Text>
             </View>
           </View>
@@ -105,12 +114,12 @@ export default function InformationCard(props: any) {
             />
             <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 15 }}>
-                {props?.category["Gasoline Car"]["total"]}
+                {props?.category?.["Gasoline Car"]?.total || 0}
               </Text>
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category["Gasoline Car"]["available"]}
+                {props?.category?.["Gasoline Car"]?.available|| 0}
               </Text>
             </View>
           </View>
@@ -123,12 +132,12 @@ export default function InformationCard(props: any) {
             />
             <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 15 }}>
-                {props?.category["Gasoline Bus"]["total"]}
+                {props?.category?.["Gasoline Bus"]?.total || 0}
               </Text>
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category["Gasoline Bus"]["available"]}
+                {props?.category?.["Gasoline Bus"]?.available|| 0}
               </Text>
             </View>
           </View>
@@ -141,12 +150,12 @@ export default function InformationCard(props: any) {
             />
             <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 15 }}>
-                {props?.category["Gasoline Bike"]["total"]}
+                {props?.category?.["Gasoline Bike"]?.total || 0}
               </Text>
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category["Gasoline Bike"]["available"]}
+                {props?.category?.["Gasoline Bike"]?.available|| 0}
               </Text>
             </View>
           </View>
@@ -159,12 +168,12 @@ export default function InformationCard(props: any) {
             />
             <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 15 }}>
-                {props?.category["Gasoline Truck"]["total"]}
+                {props?.category?.["Gasoline Truck"]?.total || 0}
               </Text>
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category["Gasoline Truck"]["available"]}
+                {props?.category?.["Gasoline Truck"]?.available|| 0}
               </Text>
             </View>
           </View>
