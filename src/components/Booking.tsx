@@ -176,22 +176,7 @@ const Booking = (props: any, { navigation }: { navigation: any }) => {
           return content;
         })}
       </View>
-      <View>
-        <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 20 }}>
-          Select your slot
-        </Text>
-          <View>
-            {...(informationCard && (
-              informationCard.map((slot: any) => {
-                return (
-                  <View key={slot.id}>
-                    <Text>Slot {slot.name}</Text>
-                  </View>
-                )
-              })
-            ))}
-          </View>
-      </View>
+      
     </View>
   );
 };
