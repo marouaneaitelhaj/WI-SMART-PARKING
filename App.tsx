@@ -1,8 +1,9 @@
 import Nearby from "./src/components/Nearby";
-import Booking from "./src/components/Booking";
+import VehicleType from "./src/components/VehicleType";
 import History from "./src/components/History";
 import SearchParking from "./src/components/SearchParking";
 import Profile from "./src/components/Profile";
+import PickParkingSlot from "./src/components/PickParkingSlot";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -69,7 +70,8 @@ function App() {
           }}
           component={HomeTabs}
         />
-        <Stack.Screen name="Booking" component={Booking} />
+        <Stack.Screen name="VehicleType" component={VehicleType} />
+        <Stack.Screen name="PickParkingSlot" component={PickParkingSlot} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -182,12 +182,13 @@ export default function InformationCard(props: any) {
       <Button
         title="Book Now"
         onPress={() => {
-          props.navigation.navigate("Booking", {
+          props.navigation.navigate("VehicleType", {
             title: props.title,
             description: props.description,
             price: props.price,
             image: props.image,
             id: props.id,
+            data: props.data,
           });
         }}
         color={"#24aaa1"}

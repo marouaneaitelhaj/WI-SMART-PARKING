@@ -30,7 +30,7 @@ export default function App({ navigation }: { navigation: any }) {
 
   const getParkZones = () => {
     axios
-      .get("http://192.168.11.106:8000/api/readparkzones")
+      .get("http://192.168.11.110:8000/api/readparkzones")
       .then((response) => {
         setParkZones(response.data);
       })
@@ -105,6 +105,7 @@ export default function App({ navigation }: { navigation: any }) {
         title={informationCard?.name}
         description={informationCard?.remarks}
         id={informationCard?.id}
+        data={informationCard}
       />
     </View>
   );
