@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import React from "react";
 import { Pressable } from "react-native";
 import axios from "axios";
+import { ScrollView } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 const Booking = (props: any, { navigation }: { navigation: any }) => {
   const [slotsParkzone, setSlotsParkzone] = useState<any>([]);
@@ -12,7 +13,7 @@ const Booking = (props: any, { navigation }: { navigation: any }) => {
       if (props.route.params?.id) {
         axios
           .get(
-            "http://192.168.11.106:8000/api/readparkzones/" +
+            "http://192.168.11.108:8000/api/readparkzones/" +
               props.route.params?.id
           )
           .then((response) => {
@@ -168,11 +169,13 @@ const Booking = (props: any, { navigation }: { navigation: any }) => {
           })}
         </View>
       </View>
-      <View>
+      <ScrollView style={{ flex: 1 }}>
         {informationCard && (
           <View>
-            <View style={{alignItems : "center"}}>
-              <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 20 }}>
+            <View style={{ alignItems: "center" }}>
+              <Text
+                style={{ fontSize: 20, fontWeight: "bold", marginBottom: 20 }}
+              >
                 Select your vehicle type
               </Text>
             </View>
@@ -210,7 +213,7 @@ const Booking = (props: any, { navigation }: { navigation: any }) => {
             </View>
           </View>
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 };
