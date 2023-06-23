@@ -2,6 +2,7 @@ import Nearby from "./src/components/Nearby";
 import VehicleType from "./src/components/VehicleType";
 import History from "./src/components/History";
 import SearchParking from "./src/components/SearchParking";
+import PickTariff from "./src/components/PickTariff";
 import Profile from "./src/components/Profile";
 import PickParkingSlot from "./src/components/PickParkingSlot";
 import { NavigationContainer } from "@react-navigation/native";
@@ -72,6 +73,7 @@ function App() {
         />
         <Stack.Screen name="VehicleType" component={VehicleType} />
         <Stack.Screen name="PickParkingSlot" component={PickParkingSlot} />
+        <Stack.Screen name="PickTariff" component={PickTariff} />
       </Stack.Navigator>
     </NavigationContainer>
   );

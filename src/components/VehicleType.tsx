@@ -67,7 +67,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                       setKeyselectd(key);
                       console.log(keyselectd);
                     }}
-                    name="car"
+                    name="car-electric"
                     size={60}
                     color="#0D6EFD"
                   />
@@ -91,7 +91,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                       setKeyselectd(key);
                       console.log(keyselectd);
                     }}
-                    name="bike"
+                    name="motorbike-electric"
                     size={60}
                     color="#0D6EFD"
                   />
@@ -115,7 +115,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                       setKeyselectd(key);
                       console.log(keyselectd);
                     }}
-                    name="bus"
+                    name="bus-electric"
                     size={60}
                     color="#0D6EFD"
                   />
@@ -163,7 +163,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                       setKeyselectd(key);
                       console.log(keyselectd);
                     }}
-                    name="car"
+                    name="car-estate"
                     size={60}
                     color="#FFC107"
                   />
@@ -248,7 +248,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
           return content;
         })}
       </View>
-      <View style={{ height: "100%", width: "100%", alignContent: "center" }}>
+      <View style={{ height: "20%", width: "100%", alignContent: "center" }}>
         <Pressable
           disabled={keyselectd == "" ? true : false}
           style={{
