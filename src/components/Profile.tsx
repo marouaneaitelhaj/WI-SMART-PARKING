@@ -23,12 +23,10 @@ const Profile = () => {
             .then(response => response.json())
             .then(data => {
                 if (data.redirect) {
-                    // Redirect to the desired page after successful login
                     setLoggedIn(true);
-                    setName(data.name); // Assuming the response includes the user's name
+                    setName(data.name); 
                     setError('');
                 } else if (data.error) {
-                    // Handle error response
                     setError(data.error);
                 }
             })
@@ -37,10 +35,22 @@ const Profile = () => {
             });
     };
 
+
+            const handleLogout = () => {
+                console.log('Logging out...');
+                setLoggedIn(false);
+                setName('');
+            };
+    
     return (
         <View style={styles.container}>
             {loggedIn ? (
-                <Text style={styles.text}>Welcome, {name}!</Text>
+                <>
+                    <Text style={styles.text}>Welcome, {name}!</Text>
+                    <TouchableOpacity style={styles.button} onPress={handleLogout}>
+                        <Text style={styles.buttonText}>Logout</Text>
+                    </TouchableOpacity>
+                </>
             ) : (
                 <>
                     {error ? <Text style={styles.error}>{error}</Text> : null}
