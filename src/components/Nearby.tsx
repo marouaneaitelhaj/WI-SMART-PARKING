@@ -30,7 +30,12 @@ export default function App({ navigation }: { navigation: any }) {
 
   const getParkZones = () => {
     axios
+<<<<<<< HEAD
       .get("http://192.168.11.110:8000/api/readparkzones")
+=======
+      .get("http://192.168.11.108:8000/api/readparkzones")
+
+>>>>>>> 1847fa604ca8d7ad038c46f6ab3d2da3635a6e24
       .then((response) => {
         setParkZones(response.data);
       })

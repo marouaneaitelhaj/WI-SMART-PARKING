@@ -21,7 +21,7 @@ export default function InformationCard(props: any) {
       available: number;
     };
   };
-  
+
   type Props = {
     category?: Category;
   };
@@ -45,7 +45,7 @@ export default function InformationCard(props: any) {
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category?.["Electric Car"]?.available|| 0}
+                {props?.category?.["Electric Car"]?.available || 0}
               </Text>
             </View>
           </View>
@@ -63,7 +63,7 @@ export default function InformationCard(props: any) {
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category?.["Electric Bus"]?.available|| 0}
+                {props?.category?.["Electric Bus"]?.available || 0}
               </Text>
             </View>
           </View>
@@ -81,7 +81,7 @@ export default function InformationCard(props: any) {
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category?.["Electric Bike"]?.available|| 0}
+                {props?.category?.["Electric Bike"]?.available || 0}
               </Text>
             </View>
           </View>
@@ -99,7 +99,7 @@ export default function InformationCard(props: any) {
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category?.["Electric Truck"]?.available|| 0}
+                {props?.category?.["Electric Truck"]?.available || 0}
               </Text>
             </View>
           </View>
@@ -119,7 +119,7 @@ export default function InformationCard(props: any) {
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category?.["Gasoline Car"]?.available|| 0}
+                {props?.category?.["Gasoline Car"]?.available || 0}
               </Text>
             </View>
           </View>
@@ -137,7 +137,7 @@ export default function InformationCard(props: any) {
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category?.["Gasoline Bus"]?.available|| 0}
+                {props?.category?.["Gasoline Bus"]?.available || 0}
               </Text>
             </View>
           </View>
@@ -155,7 +155,7 @@ export default function InformationCard(props: any) {
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category?.["Gasoline Bike"]?.available|| 0}
+                {props?.category?.["Gasoline Bike"]?.available || 0}
               </Text>
             </View>
           </View>
@@ -173,7 +173,7 @@ export default function InformationCard(props: any) {
               <Text
                 style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
               >
-                {props?.category?.["Gasoline Truck"]?.available|| 0}
+                {props?.category?.["Gasoline Truck"]?.available || 0}
               </Text>
             </View>
           </View>
