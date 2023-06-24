@@ -36,9 +36,12 @@ export default function PickTariff(
           backgroundColor: "white",
           width: "100%",
           height: "80%",
+          margin: 10,
         }}
       >
-        <View style={{}}>
+        <View style={{
+            marginBottom: 20,
+        }}>
           <Text
             style={{
               fontWeight: "bold",
@@ -55,7 +58,9 @@ export default function PickTariff(
             </Text>
           </MaterialCommunityIcons>
         </View>
-        <View style={{}}>
+        <View style={{
+            marginBottom: 20,
+        }}>
           <Text
             style={{
               fontWeight: "bold",
