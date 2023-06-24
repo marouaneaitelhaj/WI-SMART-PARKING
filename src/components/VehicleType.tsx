@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
+import Loading from "./fx/loading";
 import React from "react";
 import { Pressable } from "react-native";
 import axios from "axios";
@@ -8,12 +9,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const VehicleType = (props: any, { navigation }: { navigation: any }) => {
   const [slotsParkzone, setSlotsParkzone] = useState<any>([]);
   const [keyselectd, setKeyselectd] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     (async () => {
       if (props.route.params?.id) {
         axios
           .get(
-            "http://192.168.11.110:8000/api/readparkzones/" +
+            "http://192.168.11.103:8000/api/readparkzones/" +
               props.route.params?.id
           )
           .then((response) => {
@@ -21,12 +23,16 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
           })
           .catch((error) => {
             console.log(error);
+          })
+          .finally(() => {
+            setLoading(false);
           });
       }
     })();
   }, [props.route.params?.id]);
   return (
     <View style={{ backgroundColor: "white", width: "100%", height: "100%" }}>
+      {loading ? <Loading /> : null}
       <View>
         <Text
           style={{

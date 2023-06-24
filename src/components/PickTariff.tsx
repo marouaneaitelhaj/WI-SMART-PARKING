@@ -15,7 +15,7 @@ export default function PickTariff(
   useEffect(() => {
     axios
       .get(
-        "http://192.168.11.110:8000/api/readparkzonestariff/" +
+        "http://192.168.11.103:8000/api/readparkzonestariff/" +
           props.route.params?.parkzone +
           "/" +
           props.route.params.vehicleType

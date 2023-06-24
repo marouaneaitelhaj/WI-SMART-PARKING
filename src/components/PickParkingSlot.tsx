@@ -15,7 +15,7 @@ export default function PickParkingSlot(
   useEffect(() => {
     axios
       .get(
-        "http://192.168.11.110:8000/api/readparkzones/" +
+        "http://192.168.11.103:8000/api/readparkzones/" +
           props.route.params?.id +
           "/" +
           props.route.params.vehicleType
@@ -23,6 +23,7 @@ export default function PickParkingSlot(
       .then((response) => {
         console.log(response.data);
         setFloor(response.data);
+        setSelectedfloor(Object.keys(response.data)[0]);
       })
       .catch((error) => {
         console.log(error);
