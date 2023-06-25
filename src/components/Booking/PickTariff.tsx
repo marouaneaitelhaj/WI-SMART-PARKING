@@ -20,7 +20,7 @@ export default function PickTariff(
         "http://192.168.11.103:8000/api/readparkzonestariff/" +
           props.route.params?.parkzone +
           "/" +
-          props.route.params.vehicleType
+          props.route.params.VehicleType
       )
       .then((response) => {
         console.log(response.data);
@@ -114,7 +114,7 @@ export default function PickTariff(
                         // props.navigation.navigate("Payment", {
                         //   slot: slot,
                         //   parkzone: props.route.params?.id,
-                        //   vehicleType: props.route.params?.vehicleType,
+                        //   VehicleType: props.route.params?.VehicleType,
                         // });
                       }}
                     >
@@ -153,7 +153,7 @@ export default function PickTariff(
           onPress={() => {
             props.navigation.navigate("PickParkingSlot", {
               //   id: props.route.params?.id,
-              //   vehicleType: selectedTariff,
+              //   VehicleType: selectedTariff,
               //   parkzone: slotsParkzone,
               //   data: props.route.params.data,
             });
