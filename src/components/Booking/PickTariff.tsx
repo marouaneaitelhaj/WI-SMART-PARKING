@@ -4,12 +4,14 @@ import { useState } from "react";
 import { Pressable, ScrollView } from "react-native";
 import { Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Loading from "../fx/loading";
 
 export default function PickTariff(
   props: any,
   { navigation }: { navigation: any }
 ) {
   const [tariff, setTariff] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [parkzone, setParkzone] = useState<any>([]);
   const [selectedTariff, setSelectedTariff] = useState<any>(null);
   useEffect(() => {
@@ -27,10 +29,14 @@ export default function PickTariff(
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
   return (
     <View style={{ backgroundColor: "white", width: "100%", height: "100%" }}>
+      {loading ? <Loading /> : null}
       <View
         style={{
           backgroundColor: "white",

@@ -1,10 +1,10 @@
 import Nearby from "./src/components/Nearby";
-import VehicleType from "./src/components/VehicleType";
+import VehicleType from "./src/components/Booking/VehicleType";
 import History from "./src/components/History";
 import SearchParking from "./src/components/SearchParking";
-import PickTariff from "./src/components/PickTariff";
+import PickTariff from "./src/components/Booking/PickTariff";
 import Profile from "./src/components/Profile";
-import PickParkingSlot from "./src/components/PickParkingSlot";
+import PickParkingSlot from "./src/components/Booking/PickParkingSlot";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";

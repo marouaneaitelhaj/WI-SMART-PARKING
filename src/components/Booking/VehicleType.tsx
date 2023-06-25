@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import Loading from "./fx/loading";
+import Loading from "../fx/loading";
 import React from "react";
 import { Pressable } from "react-native";
 import axios from "axios";
