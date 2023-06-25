@@ -14,17 +14,30 @@ export default function PickParkingSlot(
   const [floor, setFloor] = useState<any>(null);
   const [selectedfloor, setSelectedfloor] = useState<any>(null);
   const [selectedSlot, setSelectedSlot] = useState<any>(null);
+  const [filterBar, setFilterBar] = useState<boolean>(true);
+  const [isside, setisside] = useState<boolean>(false);
   useEffect(() => {
+    console.log(props.route.params.VehicleType);
     axios
       .get(
         "http://192.168.11.103:8000/api/readparkzones/" +
           props.route.params?.id +
           "/" +
-          props.route.params.vehicleType
+          props.route.params.VehicleType
       )
       .then((response) => {
-        setFloor(response.data.slots);
-        setSelectedfloor(Object.keys(response.data.slots)[0]);
+        if (response.data.type == "floor") {
+          setFloor(response.data.slots);
+          setSelectedfloor(Object.keys(response.data.slots)[0]);
+        } else if (response.data.type == "standard") {
+          setFloor(response.data.slots);
+          setSelectedfloor(Object.keys(response.data.slots)[0]);
+          setFilterBar(false);
+        } else if (response.data.type == "side") {
+          setFloor(response.data.slots);
+          setSelectedfloor(Object.keys(response.data.slots)[0]);
+          setisside(true);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -33,8 +46,8 @@ export default function PickParkingSlot(
         setLoading(false);
       });
   }, []);
-  const getIcon = (vehicleType: any, color: string) => {
-    switch (vehicleType) {
+  const getIcon = (VehicleType: any, color: string) => {
+    switch (VehicleType) {
       case "Electric Car":
         return (
           <MaterialCommunityIcons name="car-electric" size={50} color={color} />
@@ -88,7 +101,8 @@ export default function PickParkingSlot(
             flexDirection: "row",
           }}
         >
-          {floor &&
+          {filterBar &&
+            floor &&
             Object.keys(floor).map((key) => {
               return (
                 <Pressable
@@ -107,13 +121,24 @@ export default function PickParkingSlot(
                     setSelectedfloor(key);
                   }}
                 >
-                  <Text
-                    style={{
-                      color: key == selectedfloor ? "white" : "black",
-                    }}
-                  >
-                    Floor Level {key}
-                  </Text>
+                  {isside && (
+                    <Text
+                      style={{
+                        color: key == selectedfloor ? "white" : "black",
+                      }}
+                    >
+                       {key} Side
+                    </Text>
+                  )}
+                  {!isside && (
+                    <Text
+                      style={{
+                        color: key == selectedfloor ? "white" : "black",
+                      }}
+                    >
+                      Floor Level {key}
+                    </Text>
+                  )}
                 </Pressable>
               );
             })}
@@ -154,12 +179,12 @@ export default function PickParkingSlot(
                       // props.navigation.navigate("Payment", {
                       //   slot: slot,
                       //   parkzone: props.route.params?.id,
-                      //   vehicleType: props.route.params?.vehicleType,
+                      //   VehicleType: props.route.params?.VehicleType,
                       // });
                     }}
                   >
                     {getIcon(
-                      props.route.params?.vehicleType,
+                      props.route.params?.VehicleType,
                       slot == selectedSlot ? "white" : "black"
                     )}
                     <Text
@@ -191,7 +216,7 @@ export default function PickParkingSlot(
             props.navigation.navigate("PickTariff", {
               slot: selectedSlot,
               parkzone: props.route.params?.id,
-              vehicleType: props.route.params?.vehicleType,
+              VehicleType: props.route.params?.VehicleType,
             });
           }}
         >

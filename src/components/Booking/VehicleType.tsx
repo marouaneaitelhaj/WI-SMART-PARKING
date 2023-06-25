@@ -268,7 +268,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
           onPress={() => {
             props.navigation.navigate("PickParkingSlot", {
               id: props.route.params?.id,
-              vehicleType: keyselectd,
+              VehicleType: keyselectd,
               parkzone: slotsParkzone,
               data: props.route.params.data,
             });
