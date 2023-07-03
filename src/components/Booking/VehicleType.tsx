@@ -15,7 +15,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
       if (props.route.params?.id) {
         axios
           .get(
-            "http://192.168.11.103:8000/api/readparkzones/" +
+            "http://192.168.1.105:8000/api/readparkzones/" +
               props.route.params?.id
           )
           .then((response) => {

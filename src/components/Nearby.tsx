@@ -4,11 +4,15 @@ import { Marker } from "react-native-maps";
 import { StyleSheet, View, Button, Text, Image } from "react-native";
 import InformationCard from "./informationCard";
 import * as Location from "expo-location";
+import Loading from "./fx/loading";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Retry from "./fx/retry";
 export default function App({ navigation }: { navigation: any }) {
   const [location, setLocation] = useState<any>(null);
+  const [reload, setReload] = useState(false);
   const [errorMsg, setErrorMsg] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [parkZones, setParkZones] = useState<any>([]);
   const [informationCard, setInformationCard] = useState<any>(null); // [1
   const [visible, setVisible] = useState(false);
@@ -29,18 +33,17 @@ export default function App({ navigation }: { navigation: any }) {
   }, [visible]);
 
   const getParkZones = () => {
+    setLoading(true);
     axios
-      .get("http://192.168.11.103:8000/api/readparkzones")
+      .get("http://192.168.1.105:8000/api/readparkzones")
       .then((response) => {
         setParkZones(response.data);
       })
       .catch((error) => {
-        return (
-          <View>
-            <Text>{error}</Text>
-            <Button title="Retry" onPress={getParkZones} />
-          </View>          
-        )
+        setReload(true);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   const listofparkzones = () => {
@@ -72,6 +75,14 @@ export default function App({ navigation }: { navigation: any }) {
   };
   return (
     <View style={styles.container}>
+      {reload && <Retry 
+      onPress={() => {
+        setReload(false);
+        getParkZones();
+        console.log("pressed");
+      }}
+      />}
+      {loading && <Loading />}
       <MapView
         onPress={() => {
           setInformationCard(null);
