@@ -63,13 +63,9 @@ const SearchParking = ({ navigation }: { navigation: any }) => {
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate("VehicleType", {
-                      title: parkZone.title,
-                      description: parkZone.description,
-                      price: parkZone.price,
-                      image: parkZone.image,
                       id: parkZone.id,
-                      data: parkZone.data,
                     });
+                    console.log(parkZone);
                   }}
                   style={{
                     width: "80%",
@@ -132,6 +128,13 @@ const SearchParking = ({ navigation }: { navigation: any }) => {
                 </TouchableOpacity>
               );
             })}
+            {
+              parkZones.length == 0 && (
+                <View>
+                  <Text>No parking found</Text>
+                </View>
+              )
+            }
         </View>
       </ScrollView>
     </View>
