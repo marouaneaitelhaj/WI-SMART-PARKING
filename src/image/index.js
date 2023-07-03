@@ -26,11 +26,11 @@ const images = {
    ChooseVehicleIMG4: require('./hundred.png'),
    ChooseVehicleIMG5: require('./hundred.png'),
 
-   // Booking Screen Img
-   BookingParkingIMG1: require('./hundred.png'),
+   // VehicleType Screen Img
+   VehicleTypeParkingIMG1: require('./hundred.png'),
 
-   // Booking Details Tab Screen Img
-   BookingDetailIMG1: require('./hundred.png'), 
+   // VehicleType Details Tab Screen Img
+   VehicleTypeDetailIMG1: require('./hundred.png'), 
 
    // Profile tab
    gpay_upi_img: require('./googlepayupilogo.png'),
