@@ -6,6 +6,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Loading from "../fx/loading";
 
+
 export default function PickParkingSlot(
   props: any,
   { navigation }: { navigation: any }
@@ -20,7 +21,7 @@ export default function PickParkingSlot(
     console.log(props.route.params.VehicleType);
     axios
       .get(
-        "http://192.168.1.105:8000/api/readparkzones/" +
+        "/readparkzones/" +
           props.route.params?.id +
           "/" +
           props.route.params.VehicleType

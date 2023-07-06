@@ -1,71 +1,76 @@
+import React, { useState } from "react";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from "react-native";
+import axios from "axios";
+import { useSelector, useDispatch } from 'react-redux';
+import { setToken } from '../redux/store'; // Import the setToken action
 
-import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import axios from 'axios';
 
 const Profile = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const token = useSelector((state: { token: string | null }) => state.token);
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [name, setName] = useState('');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [error, setError] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
-  const [newName, setNewName] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [newPassword, setNewPassword] = useState(''); // New state for registration
-  const [registrationError, setRegistrationError] = useState('');
+  const [newName, setNewName] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setNewPassword] = useState(""); // New state for registration
+  const [registrationError, setRegistrationError] = useState("");
 
   const handleLogin = () => {
-    axios.post('http://192.168.1.101:8000/api/login', {
-      email: email,
-      password: password,
-    })
-      .then(response => {
+    axios
+      .post("http://192.168.1.101:8000/login", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
         if (response.status === 200) {
           setLoggedIn(true);
           setName(response.data.user.name);
-          setError('');
+          setError("");
         }
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
-          setError(error.response.data.error || 'Invalid credentials');
+          setError(error.response.data.error || "Invalid credentials");
         } else {
-          setError('Login failed. Please try again.');
+          setError("Login failed. Please try again.");
         }
       });
   };
 
   const handleRegister = () => {
-    axios.post('http://192.168.1.101:8000/api/register', {
-      name: newName,
-      email: newEmail,
-      password: newPassword,
-    })
-      .then(response => {
-        if (response.status === 201) {
-          setLoggedIn(true);
-          setName(newName);
-          setRegistrationError('');
-        }
+    axios
+      .post("http://192.168.1.105:8000/api/register", {
+        name: newName,
+        email: newEmail,
+        password: newPassword,
       })
-      .catch(error => {
-        if (error.response) {
-          setRegistrationError(error.response.data.error || 'Registration failed. Please try again.');
-        } else {
-          setRegistrationError('Registration failed. Please try again.');
-        }
+      .then((response) => {
+        // useDispatch(setToken(response.data.token));
+        dispatch(setToken(response.data.token));
+      })
+      .catch((error) => {
+        setRegistrationError("Registration failed. Please try again.");
       });
   };
 
   const toggleRegistrationMode = () => {
-    setIsRegistering(prevState => !prevState);
-    setRegistrationError('');
+    setIsRegistering((prevState) => !prevState);
+    setRegistrationError("");
   };
 
   const handleLogout = () => {
     setLoggedIn(false);
-    setName('');
+    setName("");
   };
 
   return (
@@ -86,18 +91,18 @@ const Profile = () => {
               <TextInput
                 style={styles.input}
                 placeholder="Name"
-                onChangeText={text => setNewName(text)}
+                onChangeText={(text) => setNewName(text)}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Email"
-                onChangeText={text => setNewEmail(text)}
+                onChangeText={(text) => setNewEmail(text)}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Password"
                 secureTextEntry
-                onChangeText={text => setNewPassword(text)}
+                onChangeText={(text) => setNewPassword(text)}
               />
               {registrationError ? (
                 <Text style={styles.error}>{registrationError}</Text>
@@ -109,7 +114,9 @@ const Profile = () => {
                 style={styles.toggleButton}
                 onPress={toggleRegistrationMode}
               >
-                <Text style={styles.toggleButtonText}>Already have an account? Login</Text>
+                <Text style={styles.toggleButtonText}>
+                  Already have an account? Login
+                </Text>
               </TouchableOpacity>
             </>
           ) : (
@@ -118,13 +125,13 @@ const Profile = () => {
               <TextInput
                 style={styles.input}
                 placeholder="Email"
-                onChangeText={text => setEmail(text)}
+                onChangeText={(text) => setEmail(text)}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Password"
                 secureTextEntry
-                onChangeText={text => setPassword(text)}
+                onChangeText={(text) => setPassword(text)}
               />
               <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Login</Text>
@@ -133,7 +140,9 @@ const Profile = () => {
                 style={styles.toggleButton}
                 onPress={toggleRegistrationMode}
               >
-                <Text style={styles.toggleButtonText}>Don't have an account? Register</Text>
+                <Text style={styles.toggleButtonText}>
+                  Don't have an account? Register
+                </Text>
               </TouchableOpacity>
             </>
           )}
@@ -146,41 +155,41 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   heading: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
   },
   input: {
-    width: '80%',
+    width: "80%",
     height: 40,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     marginBottom: 10,
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: "blue",
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
   },
   buttonText: {
-    color: 'white',
-    textAlign: 'center',
+    color: "white",
+    textAlign: "center",
   },
   toggleButton: {
     marginTop: 20,
   },
   toggleButtonText: {
-    color: 'blue',
-    textDecorationLine: 'underline',
+    color: "blue",
+    textDecorationLine: "underline",
   },
   error: {
-    color: 'red',
+    color: "red",
     marginBottom: 10,
   },
   text: {

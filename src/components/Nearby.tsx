@@ -7,6 +7,8 @@ import * as Location from "expo-location";
 import Loading from "./fx/loading";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector, useDispatch } from 'react-redux';
+import { setToken } from '../redux/store'; // Import the setToken action
 import Retry from "./fx/retry";
 export default function App({ navigation }: { navigation: any }) {
   const [location, setLocation] = useState<any>(null);
@@ -16,6 +18,7 @@ export default function App({ navigation }: { navigation: any }) {
   const [parkZones, setParkZones] = useState<any>([]);
   const [informationCard, setInformationCard] = useState<any>(null); // [1
   const [visible, setVisible] = useState(false);
+  const token = useSelector((state: { token: string | null }) => state.token);
   const toogleSwitch = () => {
     setVisible(!visible);
   };
@@ -30,6 +33,7 @@ export default function App({ navigation }: { navigation: any }) {
       setLocation(location);
       getParkZones();
     })();
+    console.log(token);
   }, [visible]);
 
   const getParkZones = () => {

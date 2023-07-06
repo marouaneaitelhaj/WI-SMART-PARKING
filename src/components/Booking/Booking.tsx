@@ -13,7 +13,7 @@ const Booking = (props: any, { navigation }: { navigation: any }) => {
       if (props.route.params?.id) {
         axios
           .get(
-            "http://192.168.11.108:8000/api/readparkzones/" +
+            "/readparkzones/" +
 
               props.route.params?.id
           )
