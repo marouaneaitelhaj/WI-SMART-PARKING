@@ -21,7 +21,7 @@ export default function PickParkingSlot(
     console.log(props.route.params.VehicleType);
     axios
       .get(
-        "/readparkzones/" +
+        "http://192.168.11.106:8000/api/readparkzones/" +
           props.route.params?.id +
           "/" +
           props.route.params.VehicleType

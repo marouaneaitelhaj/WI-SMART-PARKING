@@ -4,11 +4,12 @@ import { Marker } from "react-native-maps";
 import { StyleSheet, View, Button, Text, Image } from "react-native";
 import InformationCard from "./informationCard";
 import * as Location from "expo-location";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "./fx/loading";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useSelector, useDispatch } from 'react-redux';
-import { setToken } from '../redux/store'; // Import the setToken action
+import { useSelector, useDispatch } from "react-redux";
+import { setToken } from "../redux/store"; // Import the setToken action
 import Retry from "./fx/retry";
 export default function App({ navigation }: { navigation: any }) {
   const [location, setLocation] = useState<any>(null);
@@ -33,13 +34,16 @@ export default function App({ navigation }: { navigation: any }) {
       setLocation(location);
       getParkZones();
     })();
-    console.log(token);
+    // get token from AsyncStorage
+    AsyncStorage.getItem("token").then((token) => {
+      console.log("token " + token);
+    });
   }, [visible]);
 
   const getParkZones = () => {
     setLoading(true);
     axios
-      .get("http://192.168.1.105:8000/api/readparkzones")
+      .get("http://192.168.11.106:8000/api/readparkzones")
       .then((response) => {
         setParkZones(response.data);
       })
@@ -79,13 +83,14 @@ export default function App({ navigation }: { navigation: any }) {
   };
   return (
     <View style={styles.container}>
-      {reload && <Retry 
-      onPress={() => {
-        setReload(false);
-        getParkZones();
-        console.log("pressed");
-      }}
-      />}
+      {reload && (
+        <Retry
+          onPress={() => {
+            setReload(false);
+            getParkZones();
+          }}
+        />
+      )}
       {loading && <Loading />}
       <MapView
         onPress={() => {

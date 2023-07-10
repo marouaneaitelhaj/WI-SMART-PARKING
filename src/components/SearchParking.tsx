@@ -10,7 +10,7 @@ const SearchParking = ({ navigation }: { navigation: any }) => {
   const [parkZones, setParkZones] = useState<any>([]);
   useEffect(() => {
     axios
-      .get("http://192.168.1.105:8000/api/searchParkzones/" + text)
+      .get("http://192.168.11.106:8000/api/searchParkzones/" + text)
       .then((res) => {
         setParkZones(res.data);
       });

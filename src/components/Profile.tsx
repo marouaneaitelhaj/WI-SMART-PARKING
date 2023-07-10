@@ -7,9 +7,9 @@ import {
   StyleSheet,
 } from "react-native";
 import axios from "axios";
-import { useSelector, useDispatch } from 'react-redux';
-import { setToken } from '../redux/store'; // Import the setToken action
-
+import { useSelector, useDispatch } from "react-redux";
+import { setToken } from "../redux/store"; // Import the setToken action
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = () => {
   const token = useSelector((state: { token: string | null }) => state.token);
@@ -49,7 +49,7 @@ const Profile = () => {
 
   const handleRegister = () => {
     axios
-      .post("http://192.168.1.105:8000/api/register", {
+      .post("http://192.168.11.106:8000/api/register", {
         name: newName,
         email: newEmail,
         password: newPassword,
@@ -57,6 +57,7 @@ const Profile = () => {
       .then((response) => {
         // useDispatch(setToken(response.data.token));
         dispatch(setToken(response.data.token));
+        AsyncStorage.setItem('token', response.data.token);
       })
       .catch((error) => {
         setRegistrationError("Registration failed. Please try again.");
