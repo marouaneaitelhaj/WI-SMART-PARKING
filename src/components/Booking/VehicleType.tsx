@@ -15,10 +15,11 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
       if (props.route.params?.id) {
         axios
           .get(
-            "/readparkzones/" +
+            "http://192.168.11.106:8000/api/readparkzones/" +
               props.route.params?.id
           )
           .then((response) => {
+            console.log("hado les type :" + response.data);
             setSlotsParkzone(response.data);
           })
           .catch((error) => {

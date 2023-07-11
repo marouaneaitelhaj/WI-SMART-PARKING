@@ -5,6 +5,7 @@ import { Pressable, ScrollView } from "react-native";
 import { Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Loading from "../fx/loading";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function PickTariff(
   props: any,
@@ -13,17 +14,37 @@ export default function PickTariff(
   const [tariff, setTariff] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [parkzone, setParkzone] = useState<any>([]);
+  const [token, setToken] = useState<any>(null);
+  const [user, setUser] = useState<any>(null);
   const [selectedTariff, setSelectedTariff] = useState<any>(null);
+  const [start_date, setStartDate] = useState<any>(null);
+  const [end_date, setEndDate] = useState<any>(null);
+  const [currentDate, setCurrentDate] = useState<any>(null);
   useEffect(() => {
+    AsyncStorage.getItem("token").then((token) => {
+      setToken(token);
+    });
+    axios
+      .get("http://192.168.11.106:8000/api/user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setUser(response.data);
+        // console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     axios
       .get(
-        "/readparkzonestariff/" +
+        "http://192.168.11.106:8000/api/readparkzonestariff/" +
           props.route.params?.parkzone +
           "/" +
           props.route.params.VehicleType
       )
       .then((response) => {
-        console.log(response.data);
         setTariff(response.data.tariff);
         setParkzone(response.data.parkzone);
       })
@@ -33,7 +54,7 @@ export default function PickTariff(
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [start_date, end_date]);
   return (
     <View style={{ backgroundColor: "white", width: "100%", height: "100%" }}>
       {loading ? <Loading /> : null}
@@ -45,9 +66,11 @@ export default function PickTariff(
           margin: 10,
         }}
       >
-        <View style={{
+        <View
+          style={{
             marginBottom: 20,
-        }}>
+          }}
+        >
           <Text
             style={{
               fontWeight: "bold",
@@ -64,9 +87,11 @@ export default function PickTariff(
             </Text>
           </MaterialCommunityIcons>
         </View>
-        <View style={{
+        <View
+          style={{
             marginBottom: 20,
-        }}>
+          }}
+        >
           <Text
             style={{
               fontWeight: "bold",
@@ -111,11 +136,8 @@ export default function PickTariff(
                       }}
                       onPress={() => {
                         setSelectedTariff(tariff);
-                        // props.navigation.navigate("Payment", {
-                        //   slot: slot,
-                        //   parkzone: props.route.params?.id,
-                        //   VehicleType: props.route.params?.VehicleType,
-                        // });
+                        setStartDate(tariff.validate_start_date);
+                        setEndDate(tariff.validate_end_date);
                       }}
                     >
                       <Text
@@ -137,6 +159,10 @@ export default function PickTariff(
                 })}
             </View>
           </ScrollView>
+          <View>
+            <Text>{selectedTariff?.validate_start_date}</Text>
+            <Text>{selectedTariff?.validate_end_date}</Text>
+          </View>
         </View>
       </View>
       <View style={{ height: "15%", width: "100%", alignContent: "center" }}>
