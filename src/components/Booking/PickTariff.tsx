@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Pressable, ScrollView } from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Loading from "../fx/loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function PickTariff(
   props: any,
@@ -17,9 +18,8 @@ export default function PickTariff(
   const [token, setToken] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
   const [selectedTariff, setSelectedTariff] = useState<any>(null);
-  const [start_date, setStartDate] = useState<any>(null);
-  const [end_date, setEndDate] = useState<any>(null);
-  const [currentDate, setCurrentDate] = useState<any>(null);
+  const [date, setDate] = useState(new Date());
+  const [showpicker, setShowpicker] = useState<boolean>(false);
   useEffect(() => {
     AsyncStorage.getItem("token").then((token) => {
       setToken(token);
@@ -35,7 +35,7 @@ export default function PickTariff(
         // console.log(user);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
     axios
       .get(
@@ -49,12 +49,12 @@ export default function PickTariff(
         setParkzone(response.data.parkzone);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [start_date, end_date]);
+  }, []);
   return (
     <View style={{ backgroundColor: "white", width: "100%", height: "100%" }}>
       {loading ? <Loading /> : null}
@@ -117,6 +117,7 @@ export default function PickTariff(
             <View
               style={{
                 flexDirection: "row",
+                justifyContent: "center",
               }}
             >
               {tariff &&
@@ -136,8 +137,6 @@ export default function PickTariff(
                       }}
                       onPress={() => {
                         setSelectedTariff(tariff);
-                        setStartDate(tariff.validate_start_date);
-                        setEndDate(tariff.validate_end_date);
                       }}
                     >
                       <Text
@@ -159,10 +158,59 @@ export default function PickTariff(
                 })}
             </View>
           </ScrollView>
-          <View>
-            <Text>{selectedTariff?.validate_start_date}</Text>
-            <Text>{selectedTariff?.validate_end_date}</Text>
-          </View>
+        </View>
+
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <Pressable
+            onPress={() => {
+              setShowpicker(true);
+            }}
+            style={{
+              width: "80%",
+              padding: 10,
+
+              // margin: 10,
+              borderRadius: 10,
+              backgroundColor: "#00C9B7",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+              }}
+            >
+              {selectedTariff == null ? "Select Time" : "Selected Time"}
+            </Text>
+            <Text
+              style={{
+                color: "white",
+              }}
+            >
+              {date.toLocaleTimeString()}
+            </Text>
+          </Pressable>
+          {showpicker && (
+            <DateTimePicker
+              onChange={(event, selectedDate) => {
+                setShowpicker(false);
+                if (event.type == "set") {
+                  setDate(selectedDate || date);
+                }
+              }}
+              value={date}
+              mode="time"
+              display="spinner"
+              is24Hour={true}
+            />
+          )}
         </View>
       </View>
       <View style={{ height: "15%", width: "100%", alignContent: "center" }}>
@@ -177,12 +225,7 @@ export default function PickTariff(
             marginTop: 20,
           }}
           onPress={() => {
-            props.navigation.navigate("PickParkingSlot", {
-              //   id: props.route.params?.id,
-              //   VehicleType: selectedTariff,
-              //   parkzone: slotsParkzone,
-              //   data: props.route.params.data,
-            });
+            props.navigation.navigate("PickParkingSlot", {});
           }}
         >
           <Text
@@ -201,3 +244,13 @@ export default function PickTariff(
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  selectedtime: {
+    backgroundColor: "#00C9B7",
+  },
+  notselectedtime: {
+    opacity: 0.1,
+    backgroundColor: "gray",
+  },
+});
