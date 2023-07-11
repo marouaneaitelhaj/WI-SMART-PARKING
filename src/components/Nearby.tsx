@@ -4,7 +4,7 @@ import { Marker } from "react-native-maps";
 import { StyleSheet, View, Button, Text, Image } from "react-native";
 import InformationCard from "./informationCard";
 import * as Location from "expo-location";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "./fx/loading";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -35,9 +35,9 @@ export default function App({ navigation }: { navigation: any }) {
       getParkZones();
     })();
     // get token from AsyncStorage
-    AsyncStorage.getItem("token").then((token) => {
-      console.log("token " + token);
-    });
+    // AsyncStorage.getItem("token").then((token) => {
+    //   console.log("token " + token);
+    // });
   }, [visible]);
 
   const getParkZones = () => {
