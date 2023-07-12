@@ -21,10 +21,16 @@ export default function PickTariff(
   const [date, setDate] = useState(new Date());
   const [showpicker, setShowpicker] = useState<boolean>(false);
   useEffect(() => {
+<<<<<<< HEAD
     AsyncStorage.getItem("token").then((token) => {
       setToken(token);
       console.log("this is token", token);
     });
+=======
+    // AsyncStorage.getItem("token").then((token) => {
+    //   setToken(token);
+    // });
+>>>>>>> 47a0a240b98d1ba9dde69b33acf741b0d56368de
     axios
       .get("http://192.168.11.106:8000/api/user", {
         headers: {
