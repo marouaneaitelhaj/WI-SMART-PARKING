@@ -19,7 +19,6 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
               props.route.params?.id
           )
           .then((response) => {
-            console.log("hado les type :" + response.data);
             setSlotsParkzone(response.data);
           })
           .catch((error) => {
@@ -72,7 +71,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                     style={styles.icon}
                     onPress={() => {
                       setKeyselectd(key);
-                      console.log(keyselectd);
+                      
                     }}
                     name="car-electric"
                     size={60}
@@ -96,7 +95,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                     style={styles.icon}
                     onPress={() => {
                       setKeyselectd(key);
-                      console.log(keyselectd);
+                      
                     }}
                     name="motorbike-electric"
                     size={60}
@@ -120,7 +119,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                     style={styles.icon}
                     onPress={() => {
                       setKeyselectd(key);
-                      console.log(keyselectd);
+                      
                     }}
                     name="bus-electric"
                     size={60}
@@ -144,7 +143,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                     style={styles.icon}
                     onPress={() => {
                       setKeyselectd(key);
-                      console.log(keyselectd);
+                      
                     }}
                     name="truck"
                     size={60}
@@ -168,7 +167,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                     style={styles.icon}
                     onPress={() => {
                       setKeyselectd(key);
-                      console.log(keyselectd);
+                      
                     }}
                     name="car-estate"
                     size={60}
@@ -192,7 +191,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                     style={styles.icon}
                     onPress={() => {
                       setKeyselectd(key);
-                      console.log(keyselectd);
+                      
                     }}
                     name="bike"
                     size={60}
@@ -216,7 +215,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                     style={styles.icon}
                     onPress={() => {
                       setKeyselectd(key);
-                      console.log(keyselectd);
+                      
                     }}
                     name="bus"
                     size={60}
@@ -240,7 +239,7 @@ const VehicleType = (props: any, { navigation }: { navigation: any }) => {
                     style={styles.icon}
                     onPress={() => {
                       setKeyselectd(key);
-                      console.log(keyselectd);
+                      
                     }}
                     name="truck"
                     size={60}

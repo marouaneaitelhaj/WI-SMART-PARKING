@@ -21,9 +21,16 @@ export default function PickTariff(
   const [date, setDate] = useState(new Date());
   const [showpicker, setShowpicker] = useState<boolean>(false);
   useEffect(() => {
+<<<<<<< HEAD
+    AsyncStorage.getItem("token").then((token) => {
+      setToken(token);
+      console.log("this is token", token);
+    });
+=======
     // AsyncStorage.getItem("token").then((token) => {
     //   setToken(token);
     // });
+>>>>>>> 47a0a240b98d1ba9dde69b33acf741b0d56368de
     axios
       .get("http://192.168.11.106:8000/api/user", {
         headers: {
@@ -32,10 +39,11 @@ export default function PickTariff(
       })
       .then((response) => {
         setUser(response.data);
-        // console.log(user);
+        console.log(user);
       })
       .catch((error) => {
-        // console.log(error);
+        console.log(error);
+        props.navigation.navigate("Profile");
       });
     axios
       .get(
@@ -167,15 +175,25 @@ export default function PickTariff(
             width: "100%",
           }}
         >
+          <View>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 20,
+                color: "#24aaa1",
+              }}
+            >
+              Time
+            </Text>
+          </View>
           <Pressable
             onPress={() => {
               setShowpicker(true);
+              console.log(date.toString());
             }}
             style={{
               width: "80%",
               padding: 10,
-
-              // margin: 10,
               borderRadius: 10,
               backgroundColor: "#00C9B7",
               justifyContent: "center",
@@ -187,14 +205,14 @@ export default function PickTariff(
                 color: "white",
               }}
             >
-              {selectedTariff == null ? "Select Time" : "Selected Time"}
+              Selected Time
             </Text>
             <Text
               style={{
                 color: "white",
               }}
             >
-              {date.toLocaleTimeString()}
+              {date.toTimeString().slice(0, 5)}
             </Text>
           </Pressable>
           {showpicker && (
@@ -225,7 +243,7 @@ export default function PickTariff(
             marginTop: 20,
           }}
           onPress={() => {
-            props.navigation.navigate("PickParkingSlot", {});
+            console.log(selectedTariff, date, user, parkzone, token);
           }}
         >
           <Text
