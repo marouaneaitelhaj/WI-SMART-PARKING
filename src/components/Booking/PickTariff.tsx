@@ -21,9 +21,9 @@ export default function PickTariff(
   const [end_date, setEndDate] = useState<any>(null);
   const [currentDate, setCurrentDate] = useState<any>(null);
   useEffect(() => {
-    AsyncStorage.getItem("token").then((token) => {
-      setToken(token);
-    });
+    // AsyncStorage.getItem("token").then((token) => {
+    //   setToken(token);
+    // });
     axios
       .get("http://192.168.11.106:8000/api/user", {
         headers: {
