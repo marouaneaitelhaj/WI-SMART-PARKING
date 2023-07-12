@@ -431,3 +431,19 @@ const styles = StyleSheet.create({
   },
 });
 export default Profile;
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> db97b626d3abfe51c5abbd319266834d728c5267
