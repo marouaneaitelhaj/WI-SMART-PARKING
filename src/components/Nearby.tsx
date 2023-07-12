@@ -9,6 +9,7 @@ import Loading from "./fx/loading";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setToken } from "../redux/store"; // Import the setToken action
 import Retry from "./fx/retry";
 export default function App({ navigation }: { navigation: any }) {
@@ -19,6 +20,7 @@ export default function App({ navigation }: { navigation: any }) {
   const [parkZones, setParkZones] = useState<any>([]);
   const [informationCard, setInformationCard] = useState<any>(null); // [1
   const [visible, setVisible] = useState(false);
+
   const token = useSelector((state: { token: string | null }) => state.token);
   const toogleSwitch = () => {
     setVisible(!visible);
@@ -35,9 +37,9 @@ export default function App({ navigation }: { navigation: any }) {
       getParkZones();
     })();
     // get token from AsyncStorage
-    // AsyncStorage.getItem("token").then((token) => {
-    //   console.log("token " + token);
-    // });
+    AsyncStorage.getItem("token").then((token) => {
+      console.log("token " + token);
+    });
   }, [visible]);
 
   const getParkZones = () => {
