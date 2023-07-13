@@ -177,11 +177,6 @@ export default function PickParkingSlot(
                     }}
                     onPress={() => {
                       setSelectedSlot(slot);
-                      // props.navigation.navigate("Payment", {
-                      //   slot: slot,
-                      //   parkzone: props.route.params?.id,
-                      //   VehicleType: props.route.params?.VehicleType,
-                      // });
                     }}
                   >
                     {getIcon(

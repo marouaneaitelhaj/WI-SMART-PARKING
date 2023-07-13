@@ -6,7 +6,7 @@ import { Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Loading from "../fx/loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function PickTariff(
   props: any,
@@ -253,14 +253,20 @@ export default function PickTariff(
             marginTop: 20,
           }}
           onPress={() => {
-            console.log(date);
-            console.log(selectedTariff.number_hour);
-            var startDate = new Date(date);
-            startDate.setHours(
-              startDate.getHours() + selectedTariff.number_hour
+            var endDate = new Date(date);
+            endDate.setHours(
+              endDate.getHours() + selectedTariff.number_hour
             );
-            console.log(startDate);
-            // add selectedTariff.number_hour to date and console.log it
+            props.navigation.navigate("Payment" , {
+              parkzone: parkzone,
+              tariff: selectedTariff,
+              in_time: date.toISOString(),
+              token: token,
+              VehicleType: props.route.params.VehicleType,
+              out_time: endDate.toISOString(),
+              category: props.route.params.category,
+              slotId : props.route.params.slot
+            });
           }}
         >
           <Text

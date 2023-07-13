@@ -47,6 +47,7 @@ const Profile = () => {
       })
       .then((response) => {
         AsyncStorage.setItem("token", response.data.token);
+        AsyncStorage.setItem("userId", response.data.user.id.toString());
       })
       .catch((error) => {
         console.log("Login error:", error.response.data.message);
@@ -431,19 +432,3 @@ const styles = StyleSheet.create({
   },
 });
 export default Profile;
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> db97b626d3abfe51c5abbd319266834d728c5267

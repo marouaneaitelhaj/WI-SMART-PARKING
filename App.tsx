@@ -1,6 +1,7 @@
 import Nearby from "./src/components/Nearby";
 import VehicleType from "./src/components/Booking/VehicleType";
 import History from "./src/components/History";
+import Payment from "./src/components/Booking/Payment";
 import SearchParking from "./src/components/SearchParking";
 import PickTariff from "./src/components/Booking/PickTariff";
 import Profile from "./src/components/Profile";
@@ -87,6 +88,7 @@ function App() {
         <Stack.Screen name="VehicleType" component={VehicleType} />
         <Stack.Screen name="PickParkingSlot" component={PickParkingSlot} />
         <Stack.Screen name="PickTariff" component={PickTariff} />
+        <Stack.Screen name="Payment" component={Payment} />
       </Stack.Navigator>
     </NavigationContainer>
   );
