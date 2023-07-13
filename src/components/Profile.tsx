@@ -1,17 +1,10 @@
 
-
-
-
-
-
-
-
-
-
 // import React, { useState } from 'react';
-// import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image, ImageStyle } from 'react-native';
+// import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 // import * as ImagePicker from 'expo-image-picker';
-
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { useSelector, useDispatch } from "react-redux";
+// import { setToken } from "../redux/store"; // Import the setToken action
 // import axios from 'axios';
 
 // const Profile = () => {
@@ -30,16 +23,15 @@
 //   const [cin, setCin] = useState('');
 //   const [phone, setPhone] = useState('');
 //   const [registrationError, setRegistrationError] = useState('');
-//   const [token, setToken] = useState('');
 //   const [userId, setUserId] = useState('');
 //   const [image, setImage] = useState('');
 //   const [profileImage, setProfileImage] = useState('');
-
-
-
-
+//   const token = useSelector((state: { token: string | null }) => state.token);
+//   const dispatch = useDispatch();
+//   const [loading, setLoading] = useState(false);
 
 //   const handleLogin = () => {
+//     setLoading(true);
 //     axios
 //       .post('http://192.168.11.105:8000/api/login', {
 //         email: email,
@@ -62,12 +54,14 @@
 //         } else {
 //           setError('Login failed. Please try again.');
 //         }
+//       })
+//       .finally(() => {
+//         setLoading(false);
 //       });
 //   };
 
-
-
 //   const handleRegister = () => {
+//     setLoading(true);
 //     axios.post('http://192.168.11.105:8000/api/register', {
 //       name: newName,
 //       email: newEmail,
@@ -80,6 +74,8 @@
 //           setLoggedIn(true);
 //           setName(newName);
 //           setRegistrationError('');
+//           dispatch(setToken(response.data.token)); // Dispatch the token to the Redux store
+//           AsyncStorage.setItem('token', response.data.token); // Store the token in AsyncStorage
 //         }
 //       })
 //       .catch(error => {
@@ -88,6 +84,9 @@
 //         } else {
 //           setRegistrationError('Registration failed. Please try again.');
 //         }
+//       })
+//       .finally(() => {
+//         setLoading(false);
 //       });
 //   };
 
@@ -111,16 +110,10 @@
 //     setImage('');
 //     setRegistrationError('');
 //   };
-//   interface ErrorResponse {
-//     response: {
-//       data: {
-//         message: string;
-//       };
-//     };
-//   }
 
 //   const handleUpdateProfile = async () => {
 //     try {
+//       setLoading(true);
 //       const formData = new FormData();
 //       formData.append('name', newName);
 //       formData.append('email', newEmail);
@@ -180,9 +173,10 @@
 //       } else {
 //         setRegistrationError('Update failed. Please try again.');
 //       }
+//     } finally {
+//       setLoading(false);
 //     }
 //   };
-
 
 //   const handleChooseImage = async () => {
 //     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -204,21 +198,19 @@
 //     }
 //   };
 
-
 //   return (
 //     <View style={styles.container}>
 //       {loggedIn ? (
 //         <>
 //           <Text style={styles.text}>Welcome, {name}!</Text>
-
 //           <Image
-//             source={{ uri: 'https://staticg.sportskeeda.com/editor/2022/07/31987-16590245387151-1920.jpg' }}
-//             style={{ width: 200, height: 200 }}
+//             source={{ uri: image }}
+//             style={styles.profileImage}
 //           />
 
 //           {/* Update Profile section */}
 //           <Text style={[styles.heading, styles.editProfile]}>Edit Profile</Text>
-//           <TouchableOpacity style={styles.button} onPress={handleChooseImage}>
+//           <TouchableOpacity style={styles.button} onPress={handleChooseImage} disabled={loading}>
 //             <Text style={styles.buttonText}>Choose Image</Text>
 //           </TouchableOpacity>
 //           <TextInput
@@ -226,12 +218,14 @@
 //             placeholder="Name"
 //             value={newName}
 //             onChangeText={text => setNewName(text)}
+//             editable={!loading}
 //           />
 //           <TextInput
 //             style={styles.input}
 //             placeholder="Email"
 //             value={newEmail}
 //             onChangeText={text => setNewEmail(text)}
+//             editable={!loading}
 //           />
 //           <TextInput
 //             style={styles.input}
@@ -239,45 +233,51 @@
 //             secureTextEntry
 //             value={newPassword}
 //             onChangeText={text => setNewPassword(text)}
+//             editable={!loading}
 //           />
 //           <TextInput
 //             style={styles.input}
 //             placeholder="Username"
 //             value={username}
 //             onChangeText={text => setUsername(text)}
+//             editable={!loading}
 //           />
 //           <TextInput
 //             style={styles.input}
 //             placeholder="Gender"
 //             value={gender}
 //             onChangeText={text => setGender(text)}
+//             editable={!loading}
 //           />
 //           <TextInput
 //             style={styles.input}
 //             placeholder="City"
 //             value={city}
 //             onChangeText={text => setCity(text)}
+//             editable={!loading}
 //           />
 //           <TextInput
 //             style={styles.input}
 //             placeholder="CIN"
 //             value={cin}
 //             onChangeText={text => setCin(text)}
+//             editable={!loading}
 //           />
 //           <TextInput
 //             style={styles.input}
 //             placeholder="Phone"
 //             value={phone}
 //             onChangeText={text => setPhone(text)}
+//             editable={!loading}
 //           />
 
 //           {registrationError ? (
 //             <Text style={styles.error}>{registrationError}</Text>
 //           ) : null}
-//           <TouchableOpacity style={styles.button} onPress={handleUpdateProfile}>
+//           <TouchableOpacity style={styles.button} onPress={handleUpdateProfile} disabled={loading}>
 //             <Text style={styles.buttonText}>Update Profile</Text>
 //           </TouchableOpacity>
-//           <TouchableOpacity style={styles.button} onPress={handleLogout}>
+//           <TouchableOpacity style={styles.button} onPress={handleLogout} disabled={loading}>
 //             <Text style={styles.buttonText}>Logout</Text>
 //           </TouchableOpacity>
 //         </>
@@ -286,28 +286,34 @@
 //           {error ? <Text style={styles.error}>{error}</Text> : null}
 //           {isRegistering ? (
 //             <>
-//               <Text style={styles.heading}>Register</Text>
+//               <Image
+//                 source={{ uri: 'https://vectorportal.com/storage/parking(3).jpg' }}
+//                 style={{ width: 200, height: 130, margin: 10 }}
+//               />
 //               <TextInput
 //                 style={styles.input}
 //                 placeholder="Name"
 //                 onChangeText={text => setNewName(text)}
+//                 editable={!loading}
 //               />
 //               <TextInput
 //                 style={styles.input}
 //                 placeholder="Email"
 //                 onChangeText={text => setNewEmail(text)}
+//                 editable={!loading}
 //               />
 //               <TextInput
 //                 style={styles.input}
 //                 placeholder="Password"
 //                 secureTextEntry
 //                 onChangeText={text => setNewPassword(text)}
+//                 editable={!loading}
 //               />
 
 //               {registrationError ? (
 //                 <Text style={styles.error}>{registrationError}</Text>
 //               ) : null}
-//               <TouchableOpacity style={styles.button} onPress={handleRegister}>
+//               <TouchableOpacity style={styles.button} onPress={handleRegister} disabled={loading}>
 //                 <Text style={styles.buttonText}>Register</Text>
 //               </TouchableOpacity>
 //               <TouchableOpacity
@@ -319,21 +325,30 @@
 //             </>
 //           ) : (
 //             <>
-//               <Text style={styles.heading}>Login</Text>
+//               <Image
+//                 source={{ uri: 'https://vectorportal.com/storage/parking(3).jpg' }}
+//                 style={{ width: 200, height: 130, margin: 10 }}
+//               />
 //               <TextInput
 //                 style={styles.input}
 //                 placeholder="Email"
 //                 onChangeText={text => setEmail(text)}
+//                 editable={!loading}
 //               />
 //               <TextInput
 //                 style={styles.input}
 //                 placeholder="Password"
 //                 secureTextEntry
 //                 onChangeText={text => setPassword(text)}
+//                 editable={!loading}
 //               />
-//               <TouchableOpacity style={styles.button} onPress={handleLogin}>
-//                 <Text style={styles.buttonText}>Login</Text>
-//               </TouchableOpacity>
+//               {loading ? (
+//                 <ActivityIndicator size="small" color="#24aaa1" />
+//               ) : (
+//                 <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
+//                   <Text style={styles.buttonText}>Login</Text>
+//                 </TouchableOpacity>
+//               )}
 //               <TouchableOpacity
 //                 style={styles.toggleButton}
 //                 onPress={toggleRegistrationMode}
@@ -351,8 +366,9 @@
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
-//     justifyContent: 'center',
+//     backgroundColor: '#fff',
 //     alignItems: 'center',
+//     justifyContent: 'center',
 //   },
 //   heading: {
 //     fontSize: 24,
@@ -363,9 +379,11 @@
 //     width: '80%',
 //     height: 40,
 //     borderWidth: 1,
-//     borderColor: 'gray',
+//     borderColor: '#ccc',
 //     marginBottom: 10,
 //     paddingHorizontal: 10,
+//     borderRadius: 5,
+//     backgroundColor: 'white',
 //   },
 //   button: {
 //     backgroundColor: '#24aaa1',
@@ -374,14 +392,14 @@
 //     marginTop: 10,
 //   },
 //   buttonText: {
-//     color: 'white',
+//     color: '#fff',
 //     textAlign: 'center',
 //   },
 //   toggleButton: {
 //     marginTop: 20,
 //   },
 //   toggleButtonText: {
-//     color: 'black',
+//     color: '#24aaa1',
 //   },
 //   error: {
 //     color: 'red',
@@ -392,13 +410,11 @@
 //     marginBottom: 20,
 //   },
 //   editProfile: {
-
 //     fontWeight: 'bold',
 //     fontSize: 23,
-//     color: 'black',
+//     color: '#24aaa1',
 //     margin: 2,
 //   },
-
 //   profileImage: {
 //     width: 100,
 //     height: 100,
@@ -427,25 +443,12 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image, ImageStyle } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector, useDispatch } from "react-redux";
-import { setToken } from "../redux/store"; // Import the setToken action
-
-
+import { setToken } from "../redux/store";
 import axios from 'axios';
 
 const Profile = () => {
@@ -464,20 +467,15 @@ const Profile = () => {
   const [cin, setCin] = useState('');
   const [phone, setPhone] = useState('');
   const [registrationError, setRegistrationError] = useState('');
-  // const [token, setToken] = useState('');
   const [userId, setUserId] = useState('');
   const [image, setImage] = useState('');
   const [profileImage, setProfileImage] = useState('');
   const token = useSelector((state: { token: string | null }) => state.token);
   const dispatch = useDispatch();
-
-
-
-
-
-
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
+    setLoading(true);
     axios
       .post('http://192.168.11.105:8000/api/login', {
         email: email,
@@ -500,18 +498,20 @@ const Profile = () => {
         } else {
           setError('Login failed. Please try again.');
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
-
-
   const handleRegister = () => {
+    setLoading(true);
     axios.post('http://192.168.11.105:8000/api/register', {
       name: newName,
       email: newEmail,
       password: newPassword,
     })
-     .then(response => {
+      .then(response => {
         if (response.status === 201) {
           setToken(response.data.token); // Store the token
           console.log('Token:', response.data.token); // Log the token
@@ -522,20 +522,25 @@ const Profile = () => {
           AsyncStorage.setItem('token', response.data.token); // Store the token in AsyncStorage
         }
       })
-     .catch(error => {
+      .catch(error => {
         if (error.response) {
           setRegistrationError(error.response.data.error || 'Registration failed. Please try again.');
         } else {
           setRegistrationError('Registration failed. Please try again.');
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
+
   const toggleRegistrationMode = () => {
     setIsRegistering(prevState => !prevState);
     setRegistrationError('');
   };
 
   const handleLogout = () => {
+    setLoading(true);
     setLoggedIn(false);
     setName('');
     setToken('');
@@ -549,16 +554,11 @@ const Profile = () => {
     setPhone('');
     setImage('');
     setRegistrationError('');
+    setLoading(false);
   };
-  interface ErrorResponse {
-    response: {
-      data: {
-        message: string;
-      };
-    };
-  }
 
   const handleUpdateProfile = async () => {
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append('name', newName);
@@ -619,9 +619,10 @@ const Profile = () => {
       } else {
         setRegistrationError('Update failed. Please try again.');
       }
+    } finally {
+      setLoading(false);
     }
   };
-
 
   const handleChooseImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -643,13 +644,11 @@ const Profile = () => {
     }
   };
 
-
   return (
     <View style={styles.container}>
       {loggedIn ? (
         <>
           <Text style={styles.text}>Welcome, {name}!</Text>
-
           <Image
             source={{ uri: image }}
             style={styles.profileImage}
@@ -657,7 +656,7 @@ const Profile = () => {
 
           {/* Update Profile section */}
           <Text style={[styles.heading, styles.editProfile]}>Edit Profile</Text>
-          <TouchableOpacity style={styles.button} onPress={handleChooseImage}>
+          <TouchableOpacity style={styles.button} onPress={handleChooseImage} disabled={loading}>
             <Text style={styles.buttonText}>Choose Image</Text>
           </TouchableOpacity>
           <TextInput
@@ -665,12 +664,14 @@ const Profile = () => {
             placeholder="Name"
             value={newName}
             onChangeText={text => setNewName(text)}
+            editable={!loading}
           />
           <TextInput
             style={styles.input}
             placeholder="Email"
             value={newEmail}
             onChangeText={text => setNewEmail(text)}
+            editable={!loading}
           />
           <TextInput
             style={styles.input}
@@ -678,46 +679,60 @@ const Profile = () => {
             secureTextEntry
             value={newPassword}
             onChangeText={text => setNewPassword(text)}
+            editable={!loading}
           />
           <TextInput
             style={styles.input}
             placeholder="Username"
             value={username}
             onChangeText={text => setUsername(text)}
+            editable={!loading}
           />
           <TextInput
             style={styles.input}
             placeholder="Gender"
             value={gender}
             onChangeText={text => setGender(text)}
+            editable={!loading}
           />
           <TextInput
             style={styles.input}
             placeholder="City"
             value={city}
             onChangeText={text => setCity(text)}
+            editable={!loading}
           />
           <TextInput
             style={styles.input}
             placeholder="CIN"
             value={cin}
             onChangeText={text => setCin(text)}
+            editable={!loading}
           />
           <TextInput
             style={styles.input}
             placeholder="Phone"
             value={phone}
             onChangeText={text => setPhone(text)}
+            editable={!loading}
           />
 
           {registrationError ? (
             <Text style={styles.error}>{registrationError}</Text>
           ) : null}
-          <TouchableOpacity style={styles.button} onPress={handleUpdateProfile}>
-            <Text style={styles.buttonText}>Update Profile</Text>
+          <TouchableOpacity style={styles.button} onPress={handleUpdateProfile} disabled={loading}>
+            {loading ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Update Profile</Text>
+            )}
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleLogout}>
-            <Text style={styles.buttonText}>Logout</Text>
+          <TouchableOpacity style={styles.button} onPress={handleLogout} disabled={loading}>
+            {loading ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Logout</Text>
+            )}
           </TouchableOpacity>
         </>
       ) : (
@@ -725,34 +740,39 @@ const Profile = () => {
           {error ? <Text style={styles.error}>{error}</Text> : null}
           {isRegistering ? (
             <>
-              {/* <Text style={styles.heading}>Register</Text> */}
-              
               <Image
                 source={{ uri: 'https://vectorportal.com/storage/parking(3).jpg' }}
                 style={{ width: 200, height: 130, margin: 10 }}
-                />
+              />
               <TextInput
                 style={styles.input}
                 placeholder="Name"
                 onChangeText={text => setNewName(text)}
+                editable={!loading}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Email"
                 onChangeText={text => setNewEmail(text)}
+                editable={!loading}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Password"
                 secureTextEntry
                 onChangeText={text => setNewPassword(text)}
+                editable={!loading}
               />
 
               {registrationError ? (
                 <Text style={styles.error}>{registrationError}</Text>
               ) : null}
-              <TouchableOpacity style={styles.button} onPress={handleRegister}>
-                <Text style={styles.buttonText}>Register</Text>
+              <TouchableOpacity style={styles.button} onPress={handleRegister} disabled={loading}>
+                {loading ? (
+                  <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                  <Text style={styles.buttonText}>Register</Text>
+                )}
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.toggleButton}
@@ -763,30 +783,29 @@ const Profile = () => {
             </>
           ) : (
             <>
-                {/* <Text style={styles.heading}>Login</Text> */}
-
-                <Image
+              <Image
                 source={{ uri: 'https://vectorportal.com/storage/parking(3).jpg' }}
                 style={{ width: 200, height: 130, margin: 10 }}
-                />
-                                {/* <Image
-                source={{ uri: 'https://www.ajax.ca/en/resources/news/OccasionalParking_News.jpg' }}
-                style={{ width: 220, height: 130, margin: 10 }}
-                /> */}
-                
+              />
               <TextInput
                 style={styles.input}
                 placeholder="Email"
                 onChangeText={text => setEmail(text)}
+                editable={!loading}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Password"
                 secureTextEntry
                 onChangeText={text => setPassword(text)}
+                editable={!loading}
               />
-              <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                <Text style={styles.buttonText}>Login</Text>
+              <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
+                {loading ? (
+                  <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                  <Text style={styles.buttonText}>Login</Text>
+                )}
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.toggleButton}
@@ -841,7 +860,7 @@ const styles = StyleSheet.create({
     color: '#24aaa1',
   },
   error: {
-    color: 'ed',
+    color: 'red',
     marginBottom: 10,
   },
   text: {
@@ -860,43 +879,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginBottom: 20,
   },
-  logoutButton: {
-    backgroundColor: 'ed',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  logoutButtonText: {
-    color: '#fff',
-    textAlign: 'center',
-  },
-  chooseImageButton: {
-    backgroundColor: '#24aaa1',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  chooseImageButtonText: {
-    color: '#fff',
-    textAlign: 'center',
-  },
-  image: {
-    width: 200,
-    height: 200,
-  },
 });
+
 export default Profile;
-
-
-
-
-
-
-
-
-
-
-
-
-
