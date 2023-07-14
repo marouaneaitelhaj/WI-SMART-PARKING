@@ -50,6 +50,7 @@ export default function App({ navigation }: { navigation: any }) {
         setParkZones(response.data);
       })
       .catch((error) => {
+        console.log(error);
         setReload(true);
       })
       .finally(() => {

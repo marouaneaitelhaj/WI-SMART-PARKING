@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { View, Text, Pressable, Switch, Button } from "react-native";
+import { View, Text, Pressable, Switch, Button, Alert } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Loading from "../fx/loading";
-
 
 export default function PickParkingSlot(
   props: any,
@@ -18,7 +17,6 @@ export default function PickParkingSlot(
   const [filterBar, setFilterBar] = useState<boolean>(true);
   const [isside, setisside] = useState<boolean>(false);
   useEffect(() => {
-    console.log(props.route.params.VehicleType);
     axios
       .get(
         "http://192.168.11.106:8000/api/readparkzones/" +
@@ -128,7 +126,7 @@ export default function PickParkingSlot(
                         color: key == selectedfloor ? "white" : "black",
                       }}
                     >
-                       {key} Side
+                      {key} Side
                     </Text>
                   )}
                   {!isside && (
@@ -208,12 +206,49 @@ export default function PickParkingSlot(
             marginTop: 20,
           }}
           onPress={() => {
-            console.log(selectedSlot);
-            props.navigation.navigate("PickTariff", {
-              slot: selectedSlot,
-              parkzone: props.route.params?.id,
-              VehicleType: props.route.params?.VehicleType,
-            });
+            Alert.alert(
+              "Confirm Booking",
+              "Are you sure you want to book this slot?",
+              [
+                {
+                  text: "See Available Time",
+                  onPress: () => {
+                    axios
+                      .get(
+                        "http://192.168.11.106:8000/api/slotbytypeandid/" +
+                          props.route.params.data.type +
+                          "/" +
+                          selectedSlot.id
+                      )
+                      .then((res) => {
+                        console.log(res.request._response);
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  },
+                },
+                {
+                  text: "Cancel",
+                  onPress: () => console.log("Cancel Pressed"),
+                  style: "cancel",
+                },
+                {
+                  text: "Book",
+                  onPress: () =>
+                    props.navigation.navigate("PickTariff", {
+                      slot: selectedSlot,
+                      parkzone: props.route.params?.id,
+                      VehicleType: props.route.params?.VehicleType,
+                    }),
+                },
+              ]
+            );
+            // props.navigation.navigate("PickTariff", {
+            //   slot: selectedSlot,
+            //   parkzone: props.route.params?.id,
+            //   VehicleType: props.route.params?.VehicleType,
+            // });
           }}
         >
           <Text

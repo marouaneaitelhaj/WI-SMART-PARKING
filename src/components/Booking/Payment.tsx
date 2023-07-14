@@ -1,12 +1,17 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, TextInput, Pressable } from "react-native";
+import Loading from "../fx/loading";
+import { Alert } from "react-native";
+
 export default function Paiments(
   props: any,
   { navigation }: { navigation: any }
 ) {
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     AsyncStorage.getItem("token")
       .then((token) => {
@@ -22,9 +27,11 @@ export default function Paiments(
             .then((response) => {
               console.log(response.data);
               AsyncStorage.setItem("userId", response.data.id.toString());
+              setLoading(false);
             })
             .catch((err) => {
               console.log(err);
+              props.navigation.navigate("Profile");
             });
         }
       })
@@ -37,9 +44,11 @@ export default function Paiments(
         if (userId === null) {
           props.navigation.navigate("Profile");
         }
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        props.navigation.navigate("Profile");
       });
   }, []);
   return (
@@ -137,7 +146,11 @@ export default function Paiments(
                     })
                     .then((response) => {
                       // console the body of the request
-                      console.log(JSON.parse(response.request._response));
+                      console.log(response.data.message);
+                      Alert.alert(
+                        "notification",
+                        response.data.message,
+                      );
                     })
                     .catch((error) => {
                       console.log(error);
