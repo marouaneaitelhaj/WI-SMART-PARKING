@@ -1,7 +1,15 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { View, Text, Pressable, Switch, Button, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  Switch,
+  Button,
+  Alert,
+  Modal,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Loading from "../fx/loading";
@@ -221,7 +229,25 @@ export default function PickParkingSlot(
                           selectedSlot.id
                       )
                       .then((res) => {
-                        console.log(res.request._response);
+                        // return (
+                        //   <Modal
+                        //     animationType="slide"
+                        //     transparent={true}
+                        //     visible={true}
+                        //     onRequestClose={() => {
+                        //       Alert.alert("Modal has been closed.");
+                        //     }}
+                        //   >
+                        //     {res.data.map((slot: any) => {
+                        //       return (
+                        //         <View key={slot}>
+                        //           <Text key={1}>{slot.start_time}</Text>
+                        //           <Text key={2}>{slot.end_time}</Text>
+                        //         </View>
+                        //       );
+                        //     })}
+                        //   </Modal>
+                        // );
                       })
                       .catch((err) => {
                         console.log(err);
@@ -263,6 +289,18 @@ export default function PickParkingSlot(
             Book
           </Text>
         </Pressable>
+      </View>
+      <View 
+        style={{
+          position: "absolute",
+          bottom: "50%",
+          width: "100%",
+          height: "10%",
+          backgroundColor: "#24aaa1",
+
+        }}
+      >
+        <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci nam harum, possimus vitae fugiat, aliquid incidunt deserunt nulla ducimus perspiciatis corporis! Unde id at cumque magnam inventore vel esse repudiandae.</Text>
       </View>
     </View>
   );
