@@ -22,23 +22,43 @@ export default function PickTariff(
   const [showpicker, setShowpicker] = useState<boolean>(false);
   useEffect(() => {
 
-    // AsyncStorage.getItem("token").then((token) => {
-    //   setToken(token);
-    // });
+    AsyncStorage.getItem("token").then((token) => {
+      setToken(token);
+    });
+    getUsertoken();
+    // getUser();
+    getTariff();
+  }, []);
+  const getUsertoken = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      if (token !== null) {
+        setToken(token);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const getUser = async () => {
+    setLoading(true);
     axios
       .get("http://192.168.11.106:8000/api/user", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: "Bearer " + token,
         },
       })
       .then((response) => {
-        setUser(response.data);
-        console.log(user);
+        console.log("user", response.data);
       })
       .catch((error) => {
-        console.log(error);
-        props.navigation.navigate("Profile");
+        console.log("err", error, token);
+      })
+      .finally(() => {
+        setLoading(false);
       });
+  };
+  const getTariff = async () => {
+    setLoading(true);
     axios
       .get(
         "http://192.168.11.106:8000/api/readparkzonestariff/" +
@@ -56,7 +76,7 @@ export default function PickTariff(
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  };
   return (
     <View style={{ backgroundColor: "white", width: "100%", height: "100%" }}>
       {loading ? <Loading /> : null}
@@ -237,7 +257,14 @@ export default function PickTariff(
             marginTop: 20,
           }}
           onPress={() => {
-            console.log(selectedTariff, date, user, parkzone, token);
+            console.log(date);
+            console.log(selectedTariff.number_hour);
+            var startDate = new Date(date);
+            startDate.setHours(
+              startDate.getHours() + selectedTariff.number_hour
+            );
+            console.log(startDate);
+            // add selectedTariff.number_hour to date and console.log it
           }}
         >
           <Text

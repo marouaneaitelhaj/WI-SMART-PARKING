@@ -444,12 +444,23 @@
 
 
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Image, ActivityIndicator} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector, useDispatch } from "react-redux";
 import { setToken } from "../redux/store";
 import axios from 'axios';
+import { AntDesign } from '@expo/vector-icons';
+import {Picker} from '@react-native-picker/picker';
+// import DropDownPicker from 'react-native-dropdown-picker';
+
+
+
+
+
+
+
+
 
 const Profile = () => {
   const [email, setEmail] = useState('');
@@ -643,16 +654,28 @@ const Profile = () => {
       setImage(pickerResult.assets[0].uri);
     }
   };
-
+  const GenderSelect = () => {
+    const [gender, setGender] = useState('');
+  }  
   return (
     <View style={styles.container}>
       {loggedIn ? (
         <>
+          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout} disabled={loading}>
+            {loading ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <AntDesign name="logout" size={24} color="white" />
+            )}
+          </TouchableOpacity>
           <Text style={styles.text}>Welcome, {name}!</Text>
-          <Image
-            source={{ uri: image }}
-            style={styles.profileImage}
-          />
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={styles.profileImage}
+            />
+          )}
+
 
           {/* Update Profile section */}
           <Text style={[styles.heading, styles.editProfile]}>Edit Profile</Text>
@@ -688,13 +711,13 @@ const Profile = () => {
             onChangeText={text => setUsername(text)}
             editable={!loading}
           />
-          <TextInput
+          {/* <TextInput
             style={styles.input}
             placeholder="Gender"
             value={gender}
             onChangeText={text => setGender(text)}
             editable={!loading}
-          />
+          /> */}
           <TextInput
             style={styles.input}
             placeholder="City"
@@ -717,23 +740,37 @@ const Profile = () => {
             editable={!loading}
           />
 
+          <Picker
+        style={styles.input2}
+        selectedValue={gender}
+        onValueChange={value => setGender(value)}
+      >
+        <Picker.Item label="Select Gender" value="" />
+        <Picker.Item label="Home" value="home" />
+        <Picker.Item label="Famme" value="famme" />
+      </Picker>
+
+
           {registrationError ? (
             <Text style={styles.error}>{registrationError}</Text>
           ) : null}
-          <TouchableOpacity style={styles.button} onPress={handleUpdateProfile} disabled={loading}>
-            {loading ? (
-              <ActivityIndicator size="small" color="#fff" />
-            ) : (
-              <Text style={styles.buttonText}>Update Profile</Text>
-            )}
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleLogout} disabled={loading}>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button2} onPress={handleUpdateProfile} disabled={loading}>
+              {loading ? (
+                <ActivityIndicator size="small" color="#fff" />
+              ) : (
+                <Text style={styles.buttonText}>Update Profile</Text>
+              )}
+            </TouchableOpacity>
+            {/* <TouchableOpacity style={styles.button2} onPress={handleLogout} disabled={loading}>
             {loading ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
               <Text style={styles.buttonText}>Logout</Text>
             )}
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+
+          </View>
         </>
       ) : (
         <>
@@ -848,6 +885,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
+    marginBottom: 10,
   },
   buttonText: {
     color: '#fff',
@@ -878,6 +916,37 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
     marginBottom: 20,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  button2: {
+    height: 40,
+    backgroundColor: '#24aaa1',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    marginBottom: 10,
+    margin: 10,
+  },
+  logoutButton: {
+    position: 'absolute',
+    top: -0,
+    right: 10,
+    padding: 10,
+    borderRadius: 50,
+    backgroundColor: '#24aaa1',
+  },
+  input2: {
+    width: '80%',
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: 'white',
   },
 });
 
