@@ -21,6 +21,10 @@ export default function PickTariff(
   const [date, setDate] = useState(new Date());
   const [showpicker, setShowpicker] = useState<boolean>(false);
   useEffect(() => {
+
+    AsyncStorage.getItem("token").then((token) => {
+      setToken(token);
+    });
     getUsertoken();
     // getUser();
     getTariff();
