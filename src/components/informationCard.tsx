@@ -43,7 +43,7 @@ export default function InformationCard(props: any) {
                 {props?.category?.["Electric Car"]?.total || 0}
               </Text>
               <Text
-                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+                style={{ fontSize: 17, fontWeight: "bold", color: "#198754" }}
               >
                 {props?.category?.["Electric Car"]?.available || 0}
               </Text>
@@ -61,7 +61,7 @@ export default function InformationCard(props: any) {
                 {props?.category?.["Electric Bus"]?.total || 0}
               </Text>
               <Text
-                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+                style={{ fontSize: 17, fontWeight: "bold", color: "#198754" }}
               >
                 {props?.category?.["Electric Bus"]?.available || 0}
               </Text>
@@ -79,7 +79,7 @@ export default function InformationCard(props: any) {
                 {props?.category?.["Electric Bike"]?.total || 0}
               </Text>
               <Text
-                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+                style={{ fontSize: 17, fontWeight: "bold", color: "#198754" }}
               >
                 {props?.category?.["Electric Bike"]?.available || 0}
               </Text>
@@ -97,7 +97,7 @@ export default function InformationCard(props: any) {
                 {props?.category?.["Electric Truck"]?.total || 0}
               </Text>
               <Text
-                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+                style={{ fontSize: 17, fontWeight: "bold", color: "#198754" }}
               >
                 {props?.category?.["Electric Truck"]?.available || 0}
               </Text>
@@ -117,7 +117,7 @@ export default function InformationCard(props: any) {
                 {props?.category?.["Gasoline Car"]?.total || 0}
               </Text>
               <Text
-                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+                style={{ fontSize: 17, fontWeight: "bold", color: "#198754" }}
               >
                 {props?.category?.["Gasoline Car"]?.available || 0}
               </Text>
@@ -135,7 +135,7 @@ export default function InformationCard(props: any) {
                 {props?.category?.["Gasoline Bus"]?.total || 0}
               </Text>
               <Text
-                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+                style={{ fontSize: 17, fontWeight: "bold", color: "#198754" }}
               >
                 {props?.category?.["Gasoline Bus"]?.available || 0}
               </Text>
@@ -153,7 +153,7 @@ export default function InformationCard(props: any) {
                 {props?.category?.["Gasoline Bike"]?.total || 0}
               </Text>
               <Text
-                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+                style={{ fontSize: 17, fontWeight: "bold", color: "#198754" }}
               >
                 {props?.category?.["Gasoline Bike"]?.available || 0}
               </Text>
@@ -171,7 +171,7 @@ export default function InformationCard(props: any) {
                 {props?.category?.["Gasoline Truck"]?.total || 0}
               </Text>
               <Text
-                style={{ fontSize: 17, fontWeight: "bold", color: "green" }}
+                style={{ fontSize: 17, fontWeight: "bold", color: "#198754" }}
               >
                 {props?.category?.["Gasoline Truck"]?.available || 0}
               </Text>
