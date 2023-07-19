@@ -10,7 +10,7 @@ const Register = () => {
 
   const handleRegister = () => {
     axios
-      .post('http://192.168.11.105:8000/api/register', {
+      .post('http://192.168.11.106:8000/api/register', {
         name: newName,
         email: newEmail,
         password: newPassword,

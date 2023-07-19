@@ -9,7 +9,7 @@ const Login = () => {
 
   const handleLogin = () => {
     axios
-      .post('http://192.168.11.105:8000/api/login', {
+      .post('http://192.168.11.106:8000/api/login', {
         email: email,
         password: password,
       })

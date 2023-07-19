@@ -13,6 +13,7 @@ export default function Paiments(
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    console.log(props.route.params.parkzone.type);
     AsyncStorage.getItem("token")
       .then((token) => {
         if (token === null) {
