@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
-import { View, Text, TextInput, Pressable } from "react-native";
+import { View, Text, TextInput, Pressable, RefreshControl } from "react-native";
 import Loading from "../fx/loading";
 import { Alert } from "react-native";
 
@@ -151,7 +151,16 @@ export default function Paiments(
                       Alert.alert(
                         "notification",
                         response.data.message,
+                        [
+                          {
+                            text: "ok",
+                            onPress: () => {
+                              props.navigation.navigate("History");
+                            },
+                          }
+                        ]
                       );
+
                     })
                     .catch((error) => {
                       console.log(error);

@@ -7,6 +7,7 @@ import {
   Image,
   StyleSheet,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -16,7 +17,7 @@ import axios from "axios";
 const History = () => {
   const [selectedButton, setSelectedButton] = useState<number | null>(null);
   const [showSelectedButton, setShowSelectedButton] = useState(false);
-  const [parkingData, setParkingData] = useState<any[]>([]);
+  const [parkingData, setParkingData] = useState<any>(null);
 
   useEffect(() => {
     AsyncStorage.getItem("token").then((token) => {
@@ -33,8 +34,8 @@ const History = () => {
                 "http://192.168.11.106:8000/api/showparking/" + response.data.id
               )
               .then((response) => {
-                console.log("Parking Data:", response.data);
-                setParkingData(response.data);
+                console.log("Parking Data:", response.data.data);
+                setParkingData(response.data.data);
               })
               .catch((error) => {
                 console.log("Parking Error:", error);
@@ -62,7 +63,13 @@ const History = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={() => {
+            setSelectedButton(0);
+          }} />
+        }
+      >
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[
@@ -102,33 +109,33 @@ const History = () => {
         <View>
           <Text style={styles.titleText}>Your Booking Here</Text>
         </View>
-        {/* first */}
-        {parkingData.map((item, index) => {
-          return (
-            <View style={styles.imageContainer} key={index + item.id}>
-              <Image
-                source={{
-                  uri: "https://99acres.com/microsite/articles/files/2018/07/car-parking.jpg",
-                }}
-                style={styles.image}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.idbook}>Booking ID:{item.barcode}</Text>
-                <Text style={styles.idbook}>Los Vegos Arcade Soho</Text>
-                <Text style={styles.Adress}>
-                  <MaterialCommunityIcons
-                    style={styles.iconStyle}
-                    name="map-marker"
-                    size={20}
-                    color="black"
-                  />
-                  4501 Andy Street Rapid City SD South
-                </Text>
-                <Text style={styles.status}> Parking Complete</Text>
+        {parkingData &&
+          parkingData.map((item: any, index: any) => {
+            return (
+              <View style={styles.imageContainer} key={index + item.id}>
+                <Image
+                  source={{
+                    uri: "https://99acres.com/microsite/articles/files/2018/07/car-parking.jpg",
+                  }}
+                  style={styles.image}
+                />
+                <View style={styles.textContainer}>
+                  <Text style={styles.idbook}>Booking ID:{item.barcode}</Text>
+                  <Text style={styles.idbook}> {item.City}</Text>
+                  <Text style={styles.Adress}>
+                    <MaterialCommunityIcons
+                      style={styles.iconStyle}
+                      name="map-marker"
+                      size={20}
+                      color="black"
+                    />
+                    {item.Address}
+                  </Text>
+                  <Text style={styles.status}>{item.status}</Text>
+                </View>
               </View>
-            </View>
-          );
-        })}
+            );
+          })}
       </ScrollView>
 
       {showSelectedButton && (
@@ -156,7 +163,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
     padding: 10,
-    width: 150,
+    width: 100,
     alignItems: "center",
     backgroundColor: "white",
     borderWidth: 1,
